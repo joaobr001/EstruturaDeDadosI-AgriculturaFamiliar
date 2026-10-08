@@ -11,7 +11,7 @@ void main(){
         IO.println("0. Sair");
 
         opcao = sc.nextInt();
-
+        //lembrar do break
         switch (opcao){
             case 1:
                 IO.println("[Opção 1 Selecionada: Registrar entrega de um cooperado]");
@@ -22,10 +22,13 @@ void main(){
                 break;
             case 3:
                 IO.println("[Opção 3 Selecionada: Produção por comunidade:");
+                break;
             case 4:
                 IO.println("[Opção 4 Selecionada: Alterar taxa administrativa:");
+                break;
             case 0:
                 IO.println("Encerrando sistema...");
+                break;
             default:
                 IO.println("Opção inválida! Digite de 0 a 4:");
         }
