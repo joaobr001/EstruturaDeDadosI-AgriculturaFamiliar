@@ -1,0 +1,13 @@
+Cooperativa Mista do Rio Tocantins ; Maraba ;8.0
+C010 ; Raimunda Ferreira ; Vila Espirito Santo ;4
+03/09/2026;10; ESPECIAL
+10/09/2026;12; PRIMEIRA
+17/09/2026;8; ESPECIAL
+27/08/2026;15; PRIMEIRA
+C004 ; Manoel do Carmo ; Ilha de Jatoba ;2
+05/09/2026;20; SEGUNDA
+19/09/2026;18; PRIMEIRA
+C007 ; Antonia Lopes ; Vila Espirito Santo ;3
+02/09/2026;6; ESPECIAL
+12/09/2026;9; ESPECIAL
+26/09/2026;7; PRIMEIRA
