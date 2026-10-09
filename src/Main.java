@@ -2,6 +2,7 @@ import java.util.Scanner;
 Scanner sc = new Scanner(System.in);
 void main(){
     int opcao = -1;
+    Cooperativa cooperativa = new Cooperativa("Açai","maraba",8.0);
     while (opcao != 0){
         IO.println("=== MENU DA COOPERATIVA===");
         IO.println("1. Registrar entrega de um cooperado");
@@ -14,7 +15,7 @@ void main(){
         //lembrar do break
         switch (opcao){
             case 1:
-                IO.println("[Opção 1 Selecionada: Registrar entrega de um cooperado]");
+                IO.println("[Opção 1 Selecionada: Registrar entrega]");
                 RegistrarEntrega(cooperativa);
                 break;
             case 2:
@@ -25,6 +26,7 @@ void main(){
                 break;
             case 4:
                 IO.println("[Opção 4 Selecionada: Alterar taxa administrativa:");
+                alterarTaxa(cooperativa);
                 break;
             case 0:
                 IO.println("Encerrando sistema...");
@@ -33,6 +35,11 @@ void main(){
                 IO.println("Opção inválida! Digite de 0 a 4:");
         }
     }
+}
+void alterarTaxa(Cooperativa cooperativa){
+    IO.println("Insira a nova taxa administrativa");
+    double novaTaxa = sc.nextDouble();
+    cooperativa.setTaxaAdministrativa(novaTaxa);
 }
 void RegistrarEntrega(Cooperativa cooperativa){
     IO.println("Insira a matricula do Cooperado:");
