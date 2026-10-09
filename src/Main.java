@@ -14,7 +14,7 @@ void main(){
         opcao = sc.nextInt();
         switch (opcao){
             case 1:
-                IO.println("[Opção 1 Selecionada: Registrar entrega]");
+                IO.println("[Opção 1 Selecionada:  Registrar entrega]");
                 RegistrarEntrega(cooperativa);
                 break;
             case 2:
