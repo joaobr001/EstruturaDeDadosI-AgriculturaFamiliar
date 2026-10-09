@@ -26,7 +26,6 @@ public class Entrega {
     public LocalDate getData() {
         return data;
     }
-
     public void setData(LocalDate data) {
         this.data = data;
     }

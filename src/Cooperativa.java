@@ -13,7 +13,11 @@ public class Cooperativa {
         this.municipio = municipio;
         this.taxaAdministrativa = taxaAdministrativa;
     }
-
+    public void listarCooperador(){
+        for(Cooperado c : listaCooperados){
+            IO.println(c);
+        }
+    }
     public void adicionarCoopeado(Cooperado c){
         listaCooperados.add(c);
     }

@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.LinkedList;
 
 public class Cooperado {
@@ -11,7 +12,6 @@ public class Cooperado {
         this.nome = nome;
         this.comunidade = comunidade;
     }
-
     public boolean adicionarEntrega(Entrega nova){
         if (nova.getRasas() == 0){
             return false;
@@ -31,9 +31,26 @@ public class Cooperado {
         entregas.add(i, nova);
         return true;
     }
+    public Entrega buscarEntrega(LocalDate data) {//Percorrer a lista de entregas
+        for (Entrega e : entregas) {
+            if (e.getData().equals(data)) {
+                return e;
+            }
+        }
+        return null;
+    }
+    public void removerEntrega(Entrega e){//checa se esta vazio, e remove a entrega
+        if(entregas.isEmpty()){
+            IO.println("Esse cooperado não possui entregas");
+            return;
+        }
+        boolean removido = entregas.remove(e); // diz se a operação foi concluida
 
-    public void removerEntrega(Entrega e){
-        entregas.remove(e);
+        if (removido) {
+            IO.println("Entrega removida!");
+        } else {
+            IO.println("Entrega não encontrada!");
+        }
     }
 
     public int rasas(int ano, int mes){
@@ -98,5 +115,9 @@ public class Cooperado {
 
     public void setComunidade(String comunidade) {
         this.comunidade = comunidade;
+    }
+    @Override
+    public String toString() {//Usado no metodo de listar para escrever cada cooperado, troca o print padrão da classe
+        return "Matrícula: " + matricula + " | Nome: " + nome + " | Comunidade: " + comunidade;
     }
 }
