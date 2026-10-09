@@ -12,7 +12,6 @@ void main(){
         IO.println("0. Sair");
 
         opcao = sc.nextInt();
-        //lembrar do break
         switch (opcao){
             case 1:
                 IO.println("[Opção 1 Selecionada: Registrar entrega]");
