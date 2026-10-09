@@ -12,6 +12,7 @@ public class Cooperado {
         this.nome = nome;
         this.comunidade = comunidade;
     }
+
     public boolean adicionarEntrega(Entrega nova){
         if (nova.getRasas() == 0){
             return false;
@@ -31,6 +32,7 @@ public class Cooperado {
         entregas.add(i, nova);
         return true;
     }
+
     public Entrega buscarEntrega(LocalDate data) {//Percorrer a lista de entregas
         for (Entrega e : entregas) {
             if (e.getData().equals(data)) {
@@ -39,6 +41,7 @@ public class Cooperado {
         }
         return null;
     }
+
     public void removerEntrega(Entrega e){//checa se esta vazio, e remove a entrega
         if(entregas.isEmpty()){
             IO.println("Esse cooperado não possui entregas");

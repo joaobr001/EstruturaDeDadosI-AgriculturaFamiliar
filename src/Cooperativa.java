@@ -13,11 +13,13 @@ public class Cooperativa {
         this.municipio = municipio;
         this.taxaAdministrativa = taxaAdministrativa;
     }
+
     public void listarCooperador(){
         for(Cooperado c : listaCooperados){
             IO.println(c);
         }
     }
+
     public void adicionarCoopeado(Cooperado c){
         listaCooperados.add(c);
     }
@@ -29,24 +31,20 @@ public class Cooperativa {
     public Cooperado buscarCooperado(String matricula){
         for (Cooperado c : listaCooperados){
             if (Objects.equals(c.getMatricula(), matricula)){
-                // Retornar toString com as informações do cooperado
+                return c;
             }
         }
+        return null;
     }
 
-    public double folhaPagamento(int ano, int mes) {
-        double total = 0.0;
-        for (Cooperado c : listaCooperados) {
-            total += c.liquido(ano, mes, taxaAdministrativa);
-        }
-        return total;
-    }
-
-    public List<Cooperado> ranking(int ano, int mes){
-        ArrayList<Cooperado> resultado = new ArrayList<>();
-        }
-        // Ranking do mês: cooperados por total de rasas (maior primeiro; empate pela matrícula).
-    }
+//    public double folhaPagamento(int ano, int mes) {
+//        for (Cooperado c : listaCooperados) {
+//        }
+//    }
+//
+//    public List<Cooperado> ranking(int ano, int mes){
+//        // Ranking do mês: cooperados por total de rasas (maior primeiro; empate pela matrícula).
+//    }
 
     public String getNome() {
         return nome;

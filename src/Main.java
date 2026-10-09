@@ -1,9 +1,12 @@
 import java.util.Scanner;
+
 Scanner sc = new Scanner(System.in);
+
 void exibirMenu(){
     int opcao = -1;
     Cooperativa cooperativa = new Cooperativa("Açai","maraba",8.0);
     while (opcao != 0){
+
         IO.println("=== MENU DA COOPERATIVA===");
         IO.println("1. Registrar entrega de um cooperado");
         IO.println("2. Extrato de um cooperado em um mês");
@@ -13,7 +16,6 @@ void exibirMenu(){
         IO.println("6. Detalhar um cooperador");
         IO.println("7. Adicionar Cooperador");
         IO.println("8. Listar Cooperadores");
-
         IO.println("0. Sair");
 
         opcao = sc.nextInt();
@@ -60,11 +62,11 @@ void exibirMenu(){
         }
     }
 }
+
 void listar(Cooperativa cooperativa){
     IO.println("Deseja listar os cooperadores? S/N");
     String confirmacao = sc.next();
-
-    if(confirmacao.equalsIgnoreCase("s")){
+    if(confirmacao.equalsIgnoreCase("s")){ // Creio que seja melhor implementar um switch
         cooperativa.listarCooperador();
     }else if (confirmacao.equalsIgnoreCase("N")){
         IO.println("Operação cancelada");
@@ -72,6 +74,7 @@ void listar(Cooperativa cooperativa){
         IO.println("Respota inválida! Digite S ou N");
     }
 }
+
 void addCoop(Cooperativa cooperativa){
     IO.println("Deseja adicionar um cooperado novo? S/N");
     String confirmacao = sc.next();
@@ -86,6 +89,7 @@ void addCoop(Cooperativa cooperativa){
         cooperativa.adicionarCoopeado(novoCooperado);
     }
 }
+
 void removerEntrega(Cooperativa cooperativa){
     IO.println("Insira a matricula do cooperador para remover sua entrega");
     String matricula = sc.next();
@@ -96,7 +100,6 @@ void removerEntrega(Cooperativa cooperativa){
     IO.println("Insira a data da entrega:");
     String dataStr = sc.next();
     LocalDate data = LocalDate.parse(dataStr,DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
     Entrega entrega = cooperado.buscarEntrega(data);//Buscar entrega pela data e faz a entrega apontar pro resultado
     if(entrega == null){
         throw new EntregaNaoExisteException("Entrega não encontrada nesta data");
@@ -111,6 +114,7 @@ void removerEntrega(Cooperativa cooperativa){
         IO.println("Resposta Inválida! digite S ou N");
     }
 }
+
 void detalharCooperador(Cooperativa cooperativa){
     IO.println("Insira a matricula do cooperador a ser investigado:");
     String matricula = sc.next();
@@ -130,11 +134,13 @@ void detalharCooperador(Cooperativa cooperativa){
         IO.println("Respota inválida! Digite S ou N");
     }
 }
+
 void alterarTaxa(Cooperativa cooperativa){
     IO.println("Insira a nova taxa administrativa");
     double novaTaxa = sc.nextDouble();
     cooperativa.setTaxaAdministrativa(novaTaxa);
 }
+
 void removerCoop(Cooperativa cooperativa){
     IO.println("Insira a matrícula do cooperador a ser removido");
     String matricula = sc.next();
@@ -225,6 +231,7 @@ void RegistrarEntrega(Cooperativa cooperativa){
 
     }
 }
+
 void main(){
     exibirMenu();
 }
