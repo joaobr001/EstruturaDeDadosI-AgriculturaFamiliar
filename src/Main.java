@@ -66,12 +66,16 @@ void exibirMenu(){
 void listar(Cooperativa cooperativa){
     IO.println("Deseja listar os cooperadores? S/N");
     String confirmacao = sc.next();
-    if(confirmacao.equalsIgnoreCase("s")){ // Creio que seja melhor implementar um switch
-        cooperativa.listarCooperador();
-    }else if (confirmacao.equalsIgnoreCase("N")){
-        IO.println("Operação cancelada");
-    }else{
-        IO.println("Respota inválida! Digite S ou N");
+    switch (confirmacao.toLowerCase()){
+        case "s":
+            cooperativa.listarCooperador();
+            break;
+        case "n":
+            IO.println("Operação cancelada");
+            break;
+        default:
+            IO.println("Respota inválida! Digite S ou N");
+            break;
     }
 }
 
@@ -106,12 +110,16 @@ void removerEntrega(Cooperativa cooperativa){
     }
     IO.println("Deseja remover a entrega do dia "+entrega.getData()+" ? S/N");
     String confirmacao = sc.next();
-    if(confirmacao.equalsIgnoreCase("S")){
-        cooperado.removerEntrega(entrega);
-    }else if(confirmacao.equalsIgnoreCase("N")){
-        IO.println("Operação cancelada");
-    }else{
-        IO.println("Resposta Inválida! digite S ou N");
+    switch (confirmacao.toLowerCase()){
+        case "s":
+            cooperado.removerEntrega(entrega);
+            break;
+        case "n":
+            IO.println("Operação cancelada");
+            break;
+        default:
+            IO.println("Respota inválida! Digite S ou N");
+            break;
     }
 }
 
@@ -124,14 +132,18 @@ void detalharCooperador(Cooperativa cooperativa){
     }
     IO.println("Deseja investigar "+cooperado.getNome()+" ? S/M");
     String confirmacao = sc.next();
-    if(confirmacao.equalsIgnoreCase("S")){
-        IO.println(cooperado.getNome());
-        IO.println(cooperado.getMatricula());
-        IO.println(cooperado.getComunidade());
-    }else if(confirmacao.equalsIgnoreCase("N")){
-        IO.println("Operação cancelada");
-    }else{
-        IO.println("Respota inválida! Digite S ou N");
+    switch (confirmacao.toLowerCase()){
+        case "s":
+            IO.println(cooperado.getNome());
+            IO.println(cooperado.getMatricula());
+            IO.println(cooperado.getComunidade());
+            break;
+        case "n":
+            IO.println("Operação cancelada");
+            break;
+        default:
+            IO.println("Respota inválida! Digite S ou N");
+            break;
     }
 }
 
@@ -150,13 +162,17 @@ void removerCoop(Cooperativa cooperativa){
     }
     IO.println("Deseja remover :"+ cooperado.getNome()+" ? S/M");
     String confirmacao = sc.next();
-    if(confirmacao.equalsIgnoreCase("S")){
-        cooperativa.removerCoopeado(cooperado);
-        IO.println("Cooperado removido");
-    }else if(confirmacao.equalsIgnoreCase("N")){
-        IO.println("Operação cancelada");
-    }else{
-        IO.println("Respota inválida! Digite S ou N");
+    switch (confirmacao.toLowerCase()){
+        case "s":
+            cooperativa.removerCoopeado(cooperado);
+            IO.println("Cooperado removido");
+            break;
+        case "n":
+            IO.println("Operação cancelada");
+            break;
+        default:
+            IO.println("Respota inválida! Digite S ou N");
+            break;
     }
 }
 
