@@ -11,6 +11,7 @@ public class Cooperado {
         this.matricula = matricula;
         this.nome = nome;
         this.comunidade = comunidade;
+        this.entregas = new LinkedList<>();
     }
 
     public boolean adicionarEntrega(Entrega nova){
@@ -65,14 +66,15 @@ public class Cooperado {
         }
         return total;
     }
-
+    public LinkedList<Entrega> getEntregas() {
+        return entregas;
+    }
     public double valorBruto(int ano, int mes){
         double valor = 0;
         for (Entrega e : entregas){
             if (e.getData().getYear() == ano && e.getData().getMonthValue() == mes){
-                valor += e.getRasas();
+                valor += e.getRasas() * e.precoRasa();
             }
-            valor = valor * e.precoRasa();
         }
         return valor;
     }
@@ -94,6 +96,18 @@ public class Cooperado {
         double bruto = valorBruto(ano, mes);
         double valorTaxa = bruto * taxa / 100;
         return bruto - valorTaxa + bonus(ano, mes);
+    }
+    public int removerEntregasAnteriores(LocalDate dataLimite) {
+        int removidas = 0;
+
+        for (int i = entregas.size() - 1; i >= 0; i--) {
+            if (entregas.get(i).getData().isBefore(dataLimite)) {
+                entregas.remove(i);
+                removidas++;
+            }
+        }
+
+        return removidas;
     }
 
     public String getMatricula() {

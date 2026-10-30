@@ -131,7 +131,7 @@ public class LeitorArquivo {
                 lerEntrega(cooperado, linhaEntrega, numeroEntrega);
             }
 
-            cooperativa.adicionarCooperado(cooperado);
+            cooperativa.adicionarCooperador(cooperado);
         }
 
         int totalEntregas = 0;

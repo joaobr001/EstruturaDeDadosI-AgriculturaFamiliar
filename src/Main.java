@@ -16,6 +16,9 @@ void exibirMenu(){
         IO.println("6. Detalhar um cooperador");
         IO.println("7. Adicionar Cooperador");
         IO.println("8. Listar Cooperadores");
+        IO.println("9. Remoover entrega de Cooperador");
+        IO.println("10. Buscar cooperador pela matricula ");
+        IO.println("11. Remover entregadas anteriores a data limite ");
         IO.println("0. Sair");
 
         opcao = sc.nextInt();
@@ -54,6 +57,14 @@ void exibirMenu(){
                 IO.println("[Opção 9 Selecionada: Remover Entrega de cooperador]");
                 removerEntrega(cooperativa);
                 break;
+            case 10:
+                IO.println("[Opção 10 Selecionada: Buscar cooperador pela matricula");
+                buscarCooperador(cooperativa);
+                break;
+            case 11:
+                IO.println("[Opção 11 Selecionada: Remover entregadas anteriores a data limite:");
+                removerEntregasAnteriores(cooperativa);
+                break;
             case 0:
                 IO.println("Encerrando sistema...");
                 break;
@@ -62,7 +73,55 @@ void exibirMenu(){
         }
     }
 }
+void removerEntregasAnteriores(Cooperativa cooperativa) {
+    IO.println("Insira a matrícula do cooperado:");
+    String matricula = sc.next();
 
+    Cooperado cooperado = cooperativa.buscarCooperado(matricula);
+
+    if (cooperado == null) {
+        IO.println("Cooperado não encontrado!");
+        return;
+    }
+    IO.println("Insira a data limite (DD/MM/AAAA):");
+    String dataStr = sc.next();
+    try {
+        LocalDate data = LocalDate.parse(
+                dataStr,
+                DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        );
+        IO.println("Deseja remover todas as entregas anteriores a " + data + " de " + cooperado.getNome() + "? S/N");
+
+        String confirmacao = sc.next();
+        if (confirmacao.equalsIgnoreCase("S")) {
+            int removidas = cooperado.removerEntregasAnteriores(data);
+
+            IO.println(removidas + " entrega(s) removida(s)!");
+        } else if (confirmacao.equalsIgnoreCase("N")) {
+            IO.println("Operação cancelada");
+        } else {
+            IO.println("Resposta inválida! Digite S ou N");
+        }
+    } catch (DateTimeParseException e) {
+        IO.println("Data inválida! Utilize DD/MM/AAAA.");
+    }
+}
+
+void buscarCooperador(Cooperativa cooperativa){
+    IO.println("Insira a matrícula do cooperado:");
+    String matricula = sc.next();
+
+    Cooperado cooperado = cooperativa.buscarCooperado(matricula);
+
+    if(cooperado == null){
+        IO.println("Cooperado não encontrado!");
+    }else{
+        IO.println("=== COOPERADO ENCONTRADO ===");
+        IO.println("Nome: " + cooperado.getNome());
+        IO.println("Matrícula: " + cooperado.getMatricula());
+        IO.println("Comunidade: " + cooperado.getComunidade());
+    }
+}
 void listar(Cooperativa cooperativa){
     IO.println("Deseja listar os cooperadores? S/N");
     String confirmacao = sc.next();
@@ -81,16 +140,39 @@ void listar(Cooperativa cooperativa){
 
 void addCoop(Cooperativa cooperativa){
     IO.println("Deseja adicionar um cooperado novo? S/N");
+
     String confirmacao = sc.next();
+
     if(confirmacao.equalsIgnoreCase("S")){
+
+        sc.nextLine(); // limpar quebra de linha
+
         IO.println("Insira o nome do cooperado:");
-        String nome = sc.next();
+        String nome = sc.nextLine();
+
         IO.println("Insira a matricula do cooperado:");
-        String matricula = sc.next();
+        String matricula = sc.nextLine();
+
+        // Verificar se a matrícula já existe
+        if(cooperativa.buscarCooperado(matricula) != null){
+            throw new CooperadoNaoExisteException(
+                    "Já existe um cooperado com essa matrícula!"
+            );
+        }
+
         IO.println("Insira a comunidade do cooperado:");
-        String comunidade = sc.next();
-        Cooperado novoCooperado = new Cooperado(matricula,nome,comunidade);
-        cooperativa.adicionarCoopeado(novoCooperado);
+        String comunidade = sc.nextLine();
+
+        Cooperado novoCooperado = new Cooperado(matricula, nome, comunidade);
+
+        cooperativa.adicionarCooperador(novoCooperado);
+
+        IO.println("Cooperado cadastrado com sucesso!");
+
+    }else if(confirmacao.equalsIgnoreCase("N")){
+        IO.println("Operação cancelada");
+    }else{
+        IO.println("Resposta inválida! Digite S ou N");
     }
 }
 
@@ -126,30 +208,56 @@ void removerEntrega(Cooperativa cooperativa){
 void detalharCooperador(Cooperativa cooperativa){
     IO.println("Insira a matricula do cooperador a ser investigado:");
     String matricula = sc.next();
+
     Cooperado cooperado = cooperativa.buscarCooperado(matricula);
-    if(cooperado == null ){
+
+    if(cooperado == null){
         throw new CooperadoNaoExisteException("Cooperado não existe");
     }
-    IO.println("Deseja investigar "+cooperado.getNome()+" ? S/M");
+
+    IO.println("Deseja investigar " + cooperado.getNome() + " ? S/N");
     String confirmacao = sc.next();
+
     switch (confirmacao.toLowerCase()){
         case "s":
-            IO.println(cooperado.getNome());
-            IO.println(cooperado.getMatricula());
-            IO.println(cooperado.getComunidade());
+            IO.println("=== DADOS DO COOPERADO ===");
+            IO.println("Nome: " + cooperado.getNome());
+            IO.println("Matrícula: " + cooperado.getMatricula());
+            IO.println("Comunidade: " + cooperado.getComunidade());
+
+            IO.println("\n=== ENTREGAS DO COOPERADO ===");
+
+            if(cooperado.getEntregas().isEmpty()){
+                IO.println("Nenhuma entrega registrada.");
+            }else{
+                for(Entrega e : cooperado.getEntregas()){
+                    IO.println("--------------");
+                    IO.println("Data: " + e.getData());
+                    IO.println("Rasas: " + e.getRasas());
+                    IO.println("Qualidade: " + e.getQualidade());
+                    IO.println("Preço por rasa: R$ " + e.precoRasa());
+                    IO.println("Valor da entrega: R$ " + e.valor());
+                }
+            }
             break;
+
         case "n":
             IO.println("Operação cancelada");
             break;
+
         default:
-            IO.println("Respota inválida! Digite S ou N");
+            IO.println("Resposta inválida! Digite S ou N");
             break;
     }
 }
 
 void alterarTaxa(Cooperativa cooperativa){
-    IO.println("Insira a nova taxa administrativa");
+    IO.println("Insira a nova taxa administrativa:");
+
     double novaTaxa = sc.nextDouble();
+
+    novaTaxa = Math.round(novaTaxa * 10.0) / 10.0;
+
     cooperativa.setTaxaAdministrativa(novaTaxa);
 }
 

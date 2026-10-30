@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
+import java.util.Comparator;
+import java.util.Locale;
 public class Cooperativa {
     private String nome;
     private String municipio;
@@ -20,7 +21,7 @@ public class Cooperativa {
         }
     }
 
-    public void adicionarCoopeado(Cooperado c){
+    public void adicionarCooperador(Cooperado c){
         listaCooperados.add(c);
     }
 
