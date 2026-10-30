@@ -1,4 +1,3 @@
-[README.md](https://github.com/user-attachments/files/34049759/README.md)
 # Cooperativa de Açaí — Domínio 5 (Agricultura Familiar)
 
 Trabalho de Implementação **Aplicações de Listas em Java: ArrayList e LinkedList**
@@ -55,7 +54,7 @@ Cooperativa  1 ──── * Cooperado  1 ──── * Entrega
 | `Entrega` | data, rasas, qualidade | Elemento composto; preço da rasa e valor da entrega |
 | `Qualidade` | — | Enumeração apenas com as constantes |
 
-Classes auxiliares: `LeitorArquivo`, `GravadorArquivo`, `GeradorMassaDados`, `Main` (menu) e as exceções `CooperadoNaoExisteException`, `EntregaNaoExisteException`, `DataInvalidaException`, `QualidadeInvalidaException` e `QuantidadeInvalidaException`.
+Classes auxiliares: `Main` (menu, leitura e gravação de arquivos) e as exceções `CooperadoNaoExisteException`, `EntregaNaoExisteException`, `DataInvalidaException`, `QualidadeInvalidaException` e `QuantidadeInvalidaException`.
 
 Os atributos são privados, e cada lista é criada na classe dona e alterada apenas pelos métodos `adicionar...` e `remover...` (composição, RC4). Datas usam `java.time`.
 
@@ -99,9 +98,6 @@ javac -d out src/*.java
 
 # executar o programa
 java -cp out Main
-
-# (opcional) gerar a massa de dados grande em dados/grande.txt
-java -cp out GeradorMassaDados
 ```
 
 ## 7. Formato dos arquivos
@@ -162,7 +158,7 @@ A entrega de 27/08/2026 não entra no mês de setembro.
 
 ### Massa de dados grande (RC10)
 
-`dados/grande.txt`, gerado por `GeradorMassaDados` (semente fixa, então sempre sai igual): 30 cooperados e mais de 100 entregas, com entregas fora de ordem, cooperados sem entrega e cooperados com 3 ou mais entregas no mês.
+`dados/grande.txt`: 30 cooperados e mais de 100 entregas, com entregas fora de ordem, cooperados sem entrega e cooperados com 3 ou mais entregas no mês.
 
 ## 8. Manual de utilização (menu)
 
@@ -201,14 +197,13 @@ Ao executar, o programa mostra o menu e repete até o usuário escolher `0`. Ent
 
 - [x] Classes `Cooperativa`, `Cooperado`, `Entrega` e enumeração `Qualidade`
 - [x] Entregas em `LinkedList` com inserção ordenada e regra de uma entrega por dia
-- [x] Leitura de arquivo com tratamento de linhas inválidas (`LeitorArquivo`)
-- [x] Gravação no formato de entrada (`GravadorArquivo`)
-- [x] Gerador de massa de dados (`GeradorMassaDados`)
+- [x] Leitura e gravação de arquivo (`carregarArquivo` e `salvarArquivo` em `Main`)
+- [x] Massa de dados grande (`dados/grande.txt`)
 - [x] Menu com registro, listagem, detalhe, cadastro e remoção
 - [ ] `folhaPagamento` e `ranking` em `Cooperativa`
 - [ ] Opções 2 e 3 do menu (extrato e produção por comunidade)
 - [ ] Menu: buscar por matrícula, salvar, gerar relatórios e perguntar se deseja salvar ao sair
-- [ ] Carregar `dados/cooperativa.txt` ao iniciar o programa
+- [x] Carregar `dados/cooperativa.txt` ao iniciar o programa
 - [ ] Relatórios gravados em `saidas/` (folha de pagamento e cooperados sem entrega)
 - [ ] Remoção condicional (RC5c) e ordenação dos relatórios (RC5d)
 

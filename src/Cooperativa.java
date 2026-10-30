@@ -3,16 +3,18 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Comparator;
 import java.util.Locale;
+
 public class Cooperativa {
     private String nome;
     private String municipio;
     private double taxaAdministrativa;
-    private final ArrayList<Cooperado> listaCooperados = new ArrayList<>();
+    private final ArrayList<Cooperado> listaCooperados;
 
     public Cooperativa(String nome, String municipio, double taxaAdministrativa){
         this.nome = nome;
         this.municipio = municipio;
         this.taxaAdministrativa = taxaAdministrativa;
+        this.listaCooperados = new ArrayList<>();
     }
 
     public void listarCooperador(){
@@ -21,12 +23,16 @@ public class Cooperativa {
         }
     }
 
-    public void adicionarCooperador(Cooperado c){
+    public void adicionarCooperado(Cooperado c){
         listaCooperados.add(c);
     }
 
-    public void removerCoopeado(Cooperado c){
+    public void removerCooperado(Cooperado c){
         listaCooperados.remove(c);
+    }
+
+    public ArrayList<Cooperado> getCooperados() {
+        return listaCooperados;
     }
 
     public Cooperado buscarCooperado(String matricula){

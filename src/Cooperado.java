@@ -15,7 +15,7 @@ public class Cooperado {
     }
 
     public boolean adicionarEntrega(Entrega nova){
-        if (nova.getRasas() == 0){
+        if (nova.getRasas() <= 0){
             return false;
         }
         for (Entrega e : entregas){
@@ -66,9 +66,11 @@ public class Cooperado {
         }
         return total;
     }
+
     public LinkedList<Entrega> getEntregas() {
         return entregas;
     }
+
     public double valorBruto(int ano, int mes){
         double valor = 0;
         for (Entrega e : entregas){
@@ -97,6 +99,7 @@ public class Cooperado {
         double valorTaxa = bruto * taxa / 100;
         return bruto - valorTaxa + bonus(ano, mes);
     }
+
     public int removerEntregasAnteriores(LocalDate dataLimite) {
         int removidas = 0;
 
@@ -133,6 +136,7 @@ public class Cooperado {
     public void setComunidade(String comunidade) {
         this.comunidade = comunidade;
     }
+
     @Override
     public String toString() {//Usado no metodo de listar para escrever cada cooperado, troca o print padrão da classe
         return "Matrícula: " + matricula + " | Nome: " + nome + " | Comunidade: " + comunidade;
