@@ -26,9 +26,17 @@ void exibirMenu(){
         IO.println("9. Remover entrega de Cooperador");
         IO.println("10. Buscar cooperador pela matricula");
         IO.println("11. Remover entregas anteriores a data limite");
+        IO.println("12. Salvar dados");
+        IO.println("13. Gerar relatorio de pagamento");
+        IO.println("14. Gerar relatorio de cooperados sem entrega");
         IO.println("0. Sair");
-
-        opcao = sc.nextInt();
+        try {
+            opcao = sc.nextInt();
+        }catch(InputMismatchException e){
+            IO.println("Opçãoi Inválida! Digite um número");
+            sc.next();// remover texto invalido
+            continue;
+        }
         switch (opcao){
             case 1:
                 IO.println("[Opção 1 Selecionada:  Registrar entrega]");
@@ -72,14 +80,32 @@ void exibirMenu(){
                 IO.println("[Opção 11 Selecionada: Remover entregas anteriores a data limite]");
                 removerEntregasAnteriores(cooperativa);
                 break;
+            case 12:
+                IO.println("[Opção 12 selecionada: Salvar dados");
+                salvarArquivo(cooperativa,"dados/cooperativa.txt");
+            case 13:
+                IO.println("[Opção 13 selecionada: Gerar relatório de pagamento");
+                gerarRelatorioPagamento(cooperativa);
+                break;
+            case 14:
+                IO.println("[Opção 14 Selecionada: Gerar relatório de cooperados sem entrega]");
+                gerarRelatorioSemEntrega(cooperativa);
+                break;
             case 0:
+                IO.println("Deseja salvar os dados antes de sair? (S/N)");
+                String resposta = sc.next();
+
+                if (resposta.equalsIgnoreCase("S")) {
+                    salvarArquivo(cooperativa, "dados/cooperativa.txt");
+                }
                 IO.println("Encerrando sistema...");
                 break;
             default:
-                IO.println("Opção inválida! Digite de 0 a 11:");
+                IO.println("Opção inválida! Digite de 0 a 14:");
         }
     }
 }
+
 
 void removerEntregasAnteriores(Cooperativa cooperativa) {
     IO.println("Insira a matrícula do cooperado:");
@@ -293,7 +319,7 @@ void removerCoop(Cooperativa cooperativa){
     }
 }
 
-void RegistrarEntrega(Cooperativa cooperativa){
+void RegistrarEntrega(Cooperativa cooperativa) {
     IO.println("Insira a matricula do Cooperado:");
     String matricula = sc.next();
     //validar se matricula existe dentro da lista da cooperativa
@@ -329,7 +355,7 @@ void RegistrarEntrega(Cooperativa cooperativa){
         IO.println("Insira a qualidade:1-ESPECIAL 2-PRIMEIRA 3-SEGUNDA");
         int q = sc.nextInt();
         Qualidade qualidade = null;
-        switch (q){
+        switch (q) {
             case 1:
                 qualidade = Qualidade.ESPECIAL;
                 break;
@@ -344,25 +370,27 @@ void RegistrarEntrega(Cooperativa cooperativa){
         }
 
         //Validar se ja tem entrega, caso não, registrar ela e as informações
-        IO.println("Deseja registrar entrega do cooperador "+cooperado.getNome()+" ? S/N");
+        IO.println("Deseja registrar entrega do cooperador " + cooperado.getNome() + " ? S/N");
         String confirmacao = sc.next();
-        if(confirmacao.equalsIgnoreCase("S")){
-            Entrega novaEntrega = new Entrega(data,rasas,qualidade);
+        if (confirmacao.equalsIgnoreCase("S")) {
+            Entrega novaEntrega = new Entrega(data, rasas, qualidade);
             boolean sucesso = cooperado.adicionarEntrega(novaEntrega);
-            if(!sucesso){
+            if (!sucesso) {
                 IO.println("Erro, cooperado ja possui entrega nesta data");
-            }else{
+            } else {
                 IO.println("Sucesso: Entrega registrada!");
             }
-        }else if(confirmacao.equalsIgnoreCase("N")){
+        } else if (confirmacao.equalsIgnoreCase("N")) {
             IO.println("Operação cancelada");
-        }else{
+        } else {
             IO.println("Resposta inválida! Digite S ou N");
         }
-    }catch (CooperadoNaoExisteException|DataInvalidaException|QuantidadeInvalidaException|QualidadeInvalidaException e){
-        IO.println("Erro:"+e.getMessage());
+    } catch (CooperadoNaoExisteException | DataInvalidaException | QuantidadeInvalidaException |
+             QualidadeInvalidaException e) {
+        IO.println("Erro:" + e.getMessage());
 
     }
+}
 Cooperativa carregarArquivo(String caminho){
     File arquivo = new File(caminho);
     if (!arquivo.exists()){
@@ -430,7 +458,7 @@ void salvarArquivo(Cooperativa cooperativa, String caminho){
         IO.println("Erro ao salvar arquivo: " + e.getMessage());
     }
 }
-}
+
 
 void main(){
     Locale.setDefault(Locale.US);
