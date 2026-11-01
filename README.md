@@ -79,12 +79,12 @@ Complexidades das operações principais:
 
 ## 5. Algoritmos do RC5
 
-| Item | Descrição | Onde |
-|------|-----------|------|
-| (a) Busca linear | Percorre a lista comparando a chave e devolve o objeto ou `null` | `Cooperativa.buscarCooperado`, `Cooperado.buscarEntrega` |
-| (b) Inserção ordenada | Percorre as entregas até a primeira com data posterior à nova e insere com `add(i, x)`; se não houver, insere no fim | `Cooperado.adicionarEntrega` |
-| (c) Remoção condicional | [PREENCHER: indicar a classe e o método quando implementado — laço de índice do fim para o início com `remove(i)`] | [PREENCHER] |
-| (d) Ordenação de relatórios | [PREENCHER: indicar a solução adotada — `Comparable` com `Collections.sort` em uma cópia, ou classe auxiliar de linha de relatório] | [PREENCHER] |
+| Item                        | Descrição                                                                                                                                                                                                                                                | Onde                                                                                                  |
+|-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
+| (a) Busca linear            | Percorre a lista comparando a chave e devolve o objeto ou `null`                                                                                                                                                                                         | `Cooperativa.buscarCooperado`, `Cooperado.buscarEntrega`                                              |
+| (b) Inserção ordenada       | Percorre as entregas até a primeira com data posterior à nova e insere com `add(i, x)`; se não houver, insere no fim                                                                                                                                     | `Cooperado.adicionarEntrega`                                                                          |
+| (c) Remoção condicional     | Remove todas as entregas anteriores a uma data limite. O laço do índice vai do **fim para o início** com o `remove(i)`: ao remover a posição `i`, o elemento seguinte passa a ocupar `i`, e num laço crescente o índice avançaria sem examiná-lo ( e um `for-each` lançaria `ConcurrentModificationExcepction`). Devvolve quantas entregas saíram | `Cooperado.removerEntregasAnteriores` (menu, opção 11) |
+| (d) Ordenação de relatórios | [PREENCHER: indicar a solução adotada — `Comparable` com `Collections.sort` em uma cópia, ou classe auxiliar de linha de relatório]                                                                                                                      | [PREENCHER]                                                                                           |
 
 ## 6. Como compilar e executar (RC1)
 
