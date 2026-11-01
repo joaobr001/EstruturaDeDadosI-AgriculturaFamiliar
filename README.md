@@ -226,7 +226,7 @@ Ao executar, o programa mostra o menu e repete até o usuário escolher `0`. Ent
 ```
 README.md
 src/        código-fonte Java
-dados/      cooperativa.txt (exemplo do enunciado) e grande.txt (massa grande)
+dados/      cooperativa.txt (exemplo do enunciado) e grande.txt (massa grande) e esperado.txt (saída esperada da folha de 09/2026)
 saidas/     relatórios gerados a partir dos arquivos de exemplo
 docs/       documentacao.pdf
 slides/     apresentacao.pdf
