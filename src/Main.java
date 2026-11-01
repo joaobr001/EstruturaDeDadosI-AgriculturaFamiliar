@@ -11,7 +11,7 @@ Scanner sc = new Scanner(System.in);
 
 void exibirMenu(){
     int opcao = -1;
-    Cooperativa cooperativa = new Cooperativa("Açai","maraba",8.0);
+    Cooperativa cooperativa = carregarArquivo("dados/cooperativa.txt");
     while (opcao != 0){
 
         IO.println("=== MENU DA COOPERATIVA===");
@@ -363,6 +363,73 @@ void RegistrarEntrega(Cooperativa cooperativa){
         IO.println("Erro:"+e.getMessage());
 
     }
+Cooperativa carregarArquivo(String caminho){
+    File arquivo = new File(caminho);
+    if (!arquivo.exists()){
+        IO.println("Aviso: arquivo " + caminho + " não encontrado. Iniciando com dados vazios.");
+        return new Cooperativa("Cooperativa", "", 0.0);
+    }
+    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    int numLinha = 0;
+    try (Scanner leitor = new Scanner(arquivo)){
+        if (!leitor.hasNextLine()){
+            return new Cooperativa("Cooperativa", "", 0.0);
+        }
+        numLinha++;
+        String[] cab = leitor.nextLine().split(";");
+        Cooperativa cooperativa = new Cooperativa(cab[0].trim(), cab[1].trim(), Double.parseDouble(cab[2].trim()));
+
+        while (leitor.hasNextLine()){
+            numLinha++;
+            String linha = leitor.nextLine().trim();
+            if (linha.isEmpty()) continue;
+            try {
+                String[] p = linha.split(";");
+                String matricula = p[0].trim();
+                String nome = p[1].trim();
+                String comunidade = p[2].trim();
+                int n = Integer.parseInt(p[3].trim());
+                Cooperado c = new Cooperado(matricula, nome, comunidade);
+                for (int i = 0; i < n && leitor.hasNextLine(); i++){
+                    numLinha++;
+                    String linhaEntrega = leitor.nextLine().trim();
+                    try {
+                        String[] pe = linhaEntrega.split(";");
+                        LocalDate data = LocalDate.parse(pe[0].trim(), fmt);
+                        int rasas = Integer.parseInt(pe[1].trim());
+                        Qualidade q = Qualidade.valueOf(pe[2].trim().toUpperCase());
+                        c.adicionarEntrega(new Entrega(data, rasas, q));
+                    } catch (Exception e){
+                        IO.println("Linha " + numLinha + " inválida (entrega ignorada).");
+                    }
+                }
+                cooperativa.adicionarCooperado(c);
+            } catch (Exception e){
+                IO.println("Linha " + numLinha + " inválida (registro ignorado).");
+            }
+        }
+        return cooperativa;
+    } catch (Exception e){
+        IO.println("Erro ao ler arquivo na linha " + numLinha + ". Iniciando com dados vazios.");
+        return new Cooperativa("Cooperativa", "", 0.0);
+    }
+}
+
+void salvarArquivo(Cooperativa cooperativa, String caminho){
+    DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    try (PrintWriter pw = new PrintWriter(caminho)){
+        pw.printf(Locale.US, "%s;%s;%.1f%n", cooperativa.getNome(), cooperativa.getMunicipio(), cooperativa.getTaxaAdministrativa());
+        for (Cooperado c : cooperativa.getCooperados()){
+            pw.println(c.getMatricula() + ";" + c.getNome() + ";" + c.getComunidade() + ";" + c.getEntregas().size());
+            for (Entrega e : c.getEntregas()){
+                pw.println(e.getData().format(fmt) + ";" + e.getRasas() + ";" + e.getQualidade().name());
+            }
+        }
+        IO.println("Dados salvos em " + caminho);
+    } catch (Exception e){
+        IO.println("Erro ao salvar arquivo: " + e.getMessage());
+    }
+}
 }
 
 void main(){
