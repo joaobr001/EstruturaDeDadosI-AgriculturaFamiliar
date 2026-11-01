@@ -44,14 +44,36 @@ public class Cooperativa {
         return null;
     }
 
-//    public double folhaPagamento(int ano, int mes) {
-//        for (Cooperado c : listaCooperados) {
-//        }
-//    }
-//
-//    public List<Cooperado> ranking(int ano, int mes){
-//        // Ranking do mês: cooperados por total de rasas (maior primeiro; empate pela matrícula).
-//    }
+   public double folhaPagamento(int ano, int mes) {
+    double total = 0.0;
+       for (Cooperado c : listaCooperados) {
+           total += c.liquido(ano, mes, taxaAdministrativa);
+       }
+       return total;
+   }
+
+    public List<Cooperado> ranking(int ano, int mes){
+        List<Cooperado> listaRanking = new ArrayList<>();
+        for (Cooperado c : listaCooperados) {
+            int rasasC = c.rasas(ano, mes);
+            if (rasasC == 0) {
+                continue; // se não entregou nada no mês, não entra no ranking
+            }
+            int i = 0;
+            for (Cooperado atual : listaRanking) {
+                int rasasAtual = atual.rasas(ano, mes);
+                if (rasasC > rasasAtual) {
+                    break;
+                }
+                if (rasasC == rasasAtual && c.compareTo(atual) < 0) {
+                    break;
+                }
+                i++;
+            }
+            listaRanking.add(i, c);
+        }
+        return listaRanking;
+    }
 
     public String getNome() {
         return nome;

@@ -1,7 +1,7 @@
 import java.time.LocalDate;
 import java.util.LinkedList;
 
-public class Cooperado {
+public class Cooperado implements Comparable<Cooperado> {
     private String matricula;
     private String nome;
     private String comunidade;
@@ -135,6 +135,11 @@ public class Cooperado {
 
     public void setComunidade(String comunidade) {
         this.comunidade = comunidade;
+    }
+
+    @Override
+    public int compareTo(Cooperado outro){
+        return this.matricula.compareTo(outro.matricula);
     }
 
     @Override
