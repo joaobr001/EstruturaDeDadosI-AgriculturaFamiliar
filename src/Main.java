@@ -459,6 +459,115 @@ void salvarArquivo(Cooperativa cooperativa, String caminho){
     }
 }
 
+int[] lerMesAno(){
+    try{
+        IO.println("Insira o mês (1 a 12): ");
+        int mes = sc.nextInt();
+        IO.println("Insira o ano (ex.: 2026): ");
+        int ano = sc.nextInt();
+        if(mes < 1 || mes > 12){
+            IO.println("Mês inválido! Digite de 1 a 12.");
+            return null;
+        }
+        return new int[]{mes,ano};
+    }catch(InputMismatchException e){
+        sc.next();
+        IO.println("Valor inválido! Digite apenas números");
+        return null;
+    }
+}
+
+void gravarRelatorio(String caminho, String texto){
+    new File("saidas").mkdirs();
+    try(PrintWriter pw = new PrintWriter(caminho)){
+        pw.print(texto);
+        IO.println("Relatório salvo em " + caminho);
+    }catch(Exception e){
+        IO.println("Erro ao salvar relatório: " + e.getMessage());
+    }
+}
+void gerarRelatorioPagamento(Cooperativa cooperativa){
+    int[] mesAno = lerMesAno();
+    if(mesAno == null){
+        return;
+    }
+    int mes = mesAno[0];
+    int ano = mesAno[1];
+    double taxa = cooperativa.getTaxaAdministrativa();
+
+    ArrayList<Cooperado> ordenados = new ArrayList<>(cooperativa.getCooperados());
+
+    Collections.sort(ordenados);
+
+    StringBuilder texto = new StringBuilder();
+
+    texto.append(String.format(Locale.US, "Folha %02d-%d %s (taxa %.1f%%)%n",
+            mes, ano, cooperativa.getNome(), taxa));
+
+    for(Cooperado c : ordenados){
+        int rasas = c.rasas(ano, mes);
+        if(rasas == 0){
+            continue;
+        }
+        double bruto = c.valorBruto(ano, mes);
+        double valorTaxa = bruto * taxa / 100;
+        double bonus = c.bonus(ano, mes);
+        double liquido = c.liquido(ano, mes, taxa);
+        texto.append(String.format(Locale.US, "%s %s %d rasas bruto R$ %.2f taxa R$ %.2f bonus R$ %.2f liquido R$ %.2f%n",
+                c.getMatricula(), c.getNome(), rasas, bruto, valorTaxa, bonus, liquido));
+    }
+    texto.append(String.format(Locale.US, "Total a pagar: R$ %.2f%n",
+            cooperativa.folhaPagamento(ano,mes)));
+
+    List<Cooperado> ranking = cooperativa.ranking(ano,mes);
+    texto.append("Ranking: ");
+    int limite = Math.min(3, ranking.size());
+
+    for(int i = 0; i < limite; i++){
+        Cooperado c = ranking.get(i);
+        if(i > 0){
+            texto.append(", ");
+        }
+        texto.append(String.format("%d° %s (%d rasas)",
+                i + 1, c.getMatricula(), c.rasas(ano, mes)));
+    }
+    texto.append(String.format("%n"));
+
+    IO.println(texto);
+    gravarRelatorio(String.format("saidas/pagamento_%02d_%d.txt", mes, ano), texto.toString());
+}
+
+void gerarRelatorioSemEntrega(Cooperativa cooperativa){
+    int[] mesAno = lerMesAno();
+    if(mesAno == null){
+        return;
+    }
+    int mes = mesAno[0];
+    int ano = mesAno[1];
+
+    ArrayList<Cooperado> ordenados = new ArrayList<>(cooperativa.getCooperados());
+    Collections.sort(ordenados);
+
+    StringBuilder texto = new StringBuilder();
+    texto.append(String.format("Cooperados sem entrega em %02d-%d - %s%n",
+            mes, ano, cooperativa.getNome()));
+
+    int quantidade = 0;
+    for(Cooperado c : ordenados){
+        if(c.rasas(ano, mes) == 0){
+            texto.append(c.getMatricula() + " " + c.getNome()
+                    + " (" + c.getComunidade() + ")" + System.lineSeparator());
+            quantidade++;
+        }
+    }   // <- aqui termina o for
+
+    // estas linhas ficam DEPOIS do for: rodam uma vez só, com a lista já completa
+    if(quantidade == 0){
+        texto.append("Todos os cooperados fizeram entregas no mês." + System.lineSeparator());
+    }
+    IO.print(texto);
+    gravarRelatorio(String.format("saidas/sem_entrega_%02d_%d.txt", mes, ano), texto.toString());
+}
 
 void main(){
     Locale.setDefault(Locale.US);

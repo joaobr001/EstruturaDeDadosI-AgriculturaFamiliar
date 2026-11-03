@@ -1,0 +1,6 @@
+Folha 09-2026 Cooperativa Mista do Rio Tocantins (taxa 8.0%)
+C004 Manoel do Carmo 38 rasas bruto R$ 2640.00 taxa R$ 211.20 bonus R$ 0.00 liquido R$ 2428.80
+C007 Antonia Lopes 22 rasas bruto R$ 1985.00 taxa R$ 158.80 bonus R$ 39.70 liquido R$ 1865.90
+C010 Raimunda Ferreira 30 rasas bruto R$ 2670.00 taxa R$ 213.60 bonus R$ 53.40 liquido R$ 2509.80
+Total a pagar: R$ 6804.50
+Ranking: 1° C004 (38 rasas), 2° C010 (30 rasas), 3° C007 (22 rasas)
