@@ -83,8 +83,8 @@ Complexidades das operações principais:
 |-----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------|
 | (a) Busca linear            | Percorre a lista comparando a chave e devolve o objeto ou `null`                                                                                                                                                                                         | `Cooperativa.buscarCooperado`, `Cooperado.buscarEntrega`                                              |
 | (b) Inserção ordenada       | Percorre as entregas até a primeira com data posterior à nova e insere com `add(i, x)`; se não houver, insere no fim                                                                                                                                     | `Cooperado.adicionarEntrega`                                                                          |
-| (c) Remoção condicional     | Remove todas as entregas anteriores a uma data limite. O laço do índice vai do **fim para o início** com o `remove(i)`: ao remover a posição `i`, o elemento seguinte passa a ocupar `i`, e num laço crescente o índice avançaria sem examiná-lo ( e um `for-each` lançaria `ConcurrentModificationExcepction`). Devvolve quantas entregas saíram | `Cooperado.removerEntregasAnteriores`  |
-| (d) Ordenação de relatórios | [PREENCHER: indicar a solução adotada — `Comparable` com `Collections.sort` em uma cópia, ou classe auxiliar de linha de relatório]                                                                                                                      | [PREENCHER]                                                                                           |
+| (c) Remoção condicional     | Remove todas as entregas anteriores a uma data limite. O laço do índice vai do **fim para o início** com o `remove(i)`: ao remover a posição `i`, o elemento seguinte passa a ocupar `i`, e num laço crescente o índice avançaria sem examiná-lo ( e um `for-each` lançaria `ConcurrentModificationException`). Devolve quantas entregas saíram | `Cooperado.removerEntregasAnteriores`  |
+| (d) Ordenação de relatórios | Solução adotada: `Comparable` + `Collections.sort` em uma **cópia** da lista de cooperados (`Cooperado.compareTo` compara pela matrícula), usada nos relatórios em ordem de matrícula. O ranking monta uma lista nova por inserção ordenada (maior total de rasas primeiro; empate pela matrícula). A lista original nunca é alterada | `Cooperado.compareTo`, `Cooperativa.ranking`, `Main.gerarRelatorioPagamento` e `Main.gerarRelatorioSemEntrega` |
 
 ## 6. Como compilar e executar (RC1)
 
@@ -143,18 +143,33 @@ Os relatórios são exibidos no terminal e gravados em arquivo texto. Valores nu
 | Folha de pagamento do mês, com total e ranking dos 3 maiores produtores | `saidas/pagamento_MM_yyyy.txt` |
 | Cooperados sem entrega no mês | `saidas/sem_entrega_MM_yyyy.txt` |
 
-Saída esperada da folha de pagamento para 09/2026 com o arquivo de exemplo:
+Saída esperada da folha de pagamento para 09/2026 com o arquivo de exemplo (`dados/esperado.txt`):
 
 ```
-Folha 09/2026 - Cooperativa Mista do Rio Tocantins (taxa 8.0%)
+Folha 09-2026 Cooperativa Mista do Rio Tocantins (taxa 8.0%)
 C004 Manoel do Carmo 38 rasas bruto R$ 2640.00 taxa R$ 211.20 bonus R$ 0.00 liquido R$ 2428.80
 C007 Antonia Lopes 22 rasas bruto R$ 1985.00 taxa R$ 158.80 bonus R$ 39.70 liquido R$ 1865.90
 C010 Raimunda Ferreira 30 rasas bruto R$ 2670.00 taxa R$ 213.60 bonus R$ 53.40 liquido R$ 2509.80
 Total a pagar: R$ 6804.50
-Ranking: 1o C004 (38 rasas), 2o C010 (30 rasas), 3o C007 (22 rasas)
+Ranking: 1° C004 (38 rasas), 2° C010 (30 rasas), 3° C007 (22 rasas)
 ```
 
 A entrega de 27/08/2026 não entra no mês de setembro.
+
+Só entram na folha os cooperados com pelo menos uma entrega no mês, em ordem de matrícula. O ranking mostra no máximo 3 cooperados.
+
+Exemplo do relatório de cooperados sem entrega para 10/2026 com o arquivo de exemplo:
+
+```
+Cooperados sem entrega em 10-2026 - Cooperativa Mista do Rio Tocantins
+C004 Manoel do Carmo (Ilha de Jatoba)
+C007 Antonia Lopes (Vila Espirito Santo)
+C010 Raimunda Ferreira (Vila Espirito Santo)
+```
+
+Se todos entregaram no mês, o arquivo traz a linha `Todos os cooperados fizeram entregas no mês.`
+
+O programa grava sempre em `saidas/` (com o mesmo nome para o mesmo mês). Por isso, os relatórios gerados com a massa grande foram copiados para `saidas/grande/`.
 
 ### Massa de dados grande (RC10)
 
@@ -175,6 +190,11 @@ Ao executar, o programa mostra o menu e repete até o usuário escolher `0`. Ent
 7. Adicionar Cooperador
 8. Listar Cooperadores
 9. Remover Entrega de cooperador
+10. Buscar cooperador pela matricula
+11. Remover entregas anteriores a data limite
+12. Salvar dados
+13. Gerar relatorio de pagamento
+14. Gerar relatorio de cooperados sem entrega
 0. Sair
 ```
 
@@ -189,9 +209,46 @@ Ao executar, o programa mostra o menu e repete até o usuário escolher `0`. Ent
 | 7 | Cadastra um cooperado | Informe nome, matrícula e comunidade |
 | 8 | Lista os cooperados | Mostra matrícula, nome e comunidade de cada um |
 | 9 | Remove uma entrega | Informe a matrícula e a data da entrega; confirme com `S` |
-| 0 | Sai | Encerra o programa |
+| 10 | Busca um cooperado pela matrícula | Informe a matrícula; mostra o cooperado ou avisa que não existe |
+| 11 | Remove entregas anteriores a uma data limite | Informe a data limite (`dd/MM/yyyy`); a própria data limite não é removida; mostra quantas entregas saíram |
+| 12 | Salva os dados | Grava o estado atual em `dados/cooperativa.txt` |
+| 13 | Gera o relatório de pagamento | Informe o mês (1 a 12) e o ano; exibe a folha na tela e grava em `saidas/pagamento_MM_yyyy.txt` |
+| 14 | Gera o relatório de cooperados sem entrega | Informe o mês (1 a 12) e o ano; exibe a lista na tela e grava em `saidas/sem_entrega_MM_yyyy.txt` |
+| 0 | Sai | Pergunta se deseja salvar os dados (`S`/`N`) e encerra o programa |
 
-[PREENCHER: acrescentar um exemplo de tela de cada opção, como pede o documento de funcionamento.]
+### Exemplos de tela
+
+**Opção 13 — relatório de pagamento (09/2026, arquivo de exemplo):**
+
+```
+Insira o mês (1 a 12):
+9
+Insira o ano (ex: 2026):
+2026
+Folha 09-2026 Cooperativa Mista do Rio Tocantins (taxa 8.0%)
+C004 Manoel do Carmo 38 rasas bruto R$ 2640.00 taxa R$ 211.20 bonus R$ 0.00 liquido R$ 2428.80
+C007 Antonia Lopes 22 rasas bruto R$ 1985.00 taxa R$ 158.80 bonus R$ 39.70 liquido R$ 1865.90
+C010 Raimunda Ferreira 30 rasas bruto R$ 2670.00 taxa R$ 213.60 bonus R$ 53.40 liquido R$ 2509.80
+Total a pagar: R$ 6804.50
+Ranking: 1° C004 (38 rasas), 2° C010 (30 rasas), 3° C007 (22 rasas)
+Relatório salvo em saidas/pagamento_09_2026.txt
+```
+
+**Opção 14 — cooperados sem entrega (10/2026, arquivo de exemplo):**
+
+```
+Insira o mês (1 a 12):
+10
+Insira o ano (ex: 2026):
+2026
+Cooperados sem entrega em 10-2026 - Cooperativa Mista do Rio Tocantins
+C004 Manoel do Carmo (Ilha de Jatoba)
+C007 Antonia Lopes (Vila Espirito Santo)
+C010 Raimunda Ferreira (Vila Espirito Santo)
+Relatório salvo em saidas/sem_entrega_10_2026.txt
+```
+
+[PREENCHER: acrescentar um exemplo de tela das demais opções, como pede o documento de funcionamento.]
 
 ## 9. Status da implementação
 
@@ -200,12 +257,12 @@ Ao executar, o programa mostra o menu e repete até o usuário escolher `0`. Ent
 - [x] Leitura e gravação de arquivo (`carregarArquivo` e `salvarArquivo` em `Main`)
 - [x] Massa de dados grande (`dados/grande.txt`)
 - [x] Menu com registro, listagem, detalhe, cadastro e remoção
-- [ ] `folhaPagamento` e `ranking` em `Cooperativa`
+- [x] `folhaPagamento` e `ranking` em `Cooperativa`
 - [ ] Opções 2 e 3 do menu (extrato e produção por comunidade)
-- [ ] Menu: buscar por matrícula, salvar, gerar relatórios e perguntar se deseja salvar ao sair
+- [x] Menu: buscar por matrícula, salvar, gerar relatórios e perguntar se deseja salvar ao sair
 - [x] Carregar `dados/cooperativa.txt` ao iniciar o programa
-- [ ] Relatórios gravados em `saidas/` (folha de pagamento e cooperados sem entrega)
-- [ ] Remoção condicional (RC5c) e ordenação dos relatórios (RC5d)
+- [x] Relatórios gravados em `saidas/` (folha de pagamento e cooperados sem entrega)
+- [x] Remoção condicional (RC5c) e ordenação dos relatórios (RC5d)
 
 ## 10. Limitações conhecidas
 
@@ -227,7 +284,7 @@ Ao executar, o programa mostra o menu e repete até o usuário escolher `0`. Ent
 README.md
 src/        código-fonte Java
 dados/      cooperativa.txt (exemplo do enunciado) e grande.txt (massa grande) e esperado.txt (saída esperada da folha de 09/2026)
-saidas/     relatórios gerados a partir dos arquivos de exemplo
+saidas/     relatórios gerados com o arquivo de exemplo (saidas/grande/ tem os gerados com a massa grande)
 docs/       documentacao.pdf
 slides/     apresentacao.pdf
 ```

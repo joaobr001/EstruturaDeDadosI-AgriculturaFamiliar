@@ -1,9 +1,9 @@
 Cooperativa Mista do Rio Tocantins;Maraba;8.0
 C010;Raimunda Ferreira;Vila Espirito Santo;4
+27/08/2026;15;PRIMEIRA
 03/09/2026;10;ESPECIAL
 10/09/2026;12;PRIMEIRA
 17/09/2026;8;ESPECIAL
-27/08/2026;15;PRIMEIRA
 C004;Manoel do Carmo;Ilha de Jatoba;2
 05/09/2026;20;SEGUNDA
 19/09/2026;18;PRIMEIRA
