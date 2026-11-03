@@ -218,12 +218,229 @@ Ao executar, o programa mostra o menu e repete até o usuário escolher `0`. Ent
 
 ### Exemplos de tela
 
-**Opção 13 — relatório de pagamento (09/2026, arquivo de exemplo):**
+Os exemplos usam o arquivo de exemplo (`dados/cooperativa.txt`). O que o usuário digita aparece em uma linha própria, logo abaixo da pergunta. Depois de cada opção, o menu é exibido de novo.
+
+**Tela inicial**
 
 ```
+=== MENU DA COOPERATIVA===
+1. Registrar entrega de um cooperado
+2. Extrato de um cooperado em um mês
+3. Produção por comunidade em um mês
+4. Alterar a taxa administrativa da cooperativa
+5. Remover cooperador
+6. Detalhar um cooperador
+7. Adicionar Cooperador
+8. Listar Cooperadores
+9. Remover entrega de Cooperador
+10. Buscar cooperador pela matricula
+11. Remover entregas anteriores a data limite
+12. Salvar dados
+13. Gerar relatorio de pagamento
+14. Gerar relatorio de cooperados sem entrega
+0. Sair
+```
+
+**Opção 1 — registrar entrega**
+
+```
+[Opção 1 Selecionada:  Registrar entrega]
+Insira a matricula do Cooperado:
+C004
+Insira a quantia de rasas
+15
+Data da entrega(DD/MM/AAAA)
+21/09/2026
+Insira a qualidade:1-ESPECIAL 2-PRIMEIRA 3-SEGUNDA
+2
+Deseja registrar entrega do cooperador Manoel do Carmo ? S/N
+S
+Sucesso: Entrega registrada!
+```
+
+Se o cooperado já tem entrega na data informada (aqui, 05/09/2026), a entrega é recusada:
+
+```
+Deseja registrar entrega do cooperador Manoel do Carmo ? S/N
+S
+Erro, cooperado ja possui entrega nesta data
+```
+
+Entradas inválidas mostram uma mensagem e voltam ao menu:
+
+```
+Insira a matricula do Cooperado:
+C999
+Erro:Cooperado não existe!
+```
+
+```
+Insira a quantia de rasas
+-5
+Erro:A quantidade deve ser maior que 0!
+```
+
+```
+Data da entrega(DD/MM/AAAA)
+31-09-2026
+Erro:Formato de Data Inválido, Utilize DD/MM/AAAA
+```
+
+```
+Insira a qualidade:1-ESPECIAL 2-PRIMEIRA 3-SEGUNDA
+7
+Erro:Qualidade inserida não existe!
+```
+
+**Opções 2 e 3 — extrato e produção por comunidade**
+
+Ainda não implementadas: por enquanto, mostram apenas a mensagem de seleção (`[Opção 2 Selecionada: Extrato do cooperado]` e `[Opção 3 Selecionada: Produção por comunidade:]`).
+
+**Opção 4 — alterar a taxa administrativa**
+
+```
+[Opção 4 Selecionada: Alterar taxa administrativa:]
+Insira a nova taxa administrativa:
+10.0
+```
+
+A taxa é arredondada para uma casa decimal e passa a valer nos relatórios (o cabeçalho da folha passa a mostrar `taxa 10.0%`).
+
+**Opção 5 — remover cooperador**
+
+```
+[Opção 5 Selecionada: Remover Cooperador]
+Insira a matrícula do cooperador a ser removido
+C007
+Deseja remover :Antonia Lopes ? S/N
+S
+Cooperado removido
+```
+
+Respondendo `N`, aparece `Operação cancelada`.
+
+**Opção 6 — detalhar cooperador**
+
+```
+[Opção 6 Selecionada: Detalhar Cooperador]
+Insira a matricula do cooperador a ser investigado:
+C004
+Deseja investigar Manoel do Carmo ? S/N
+S
+=== DADOS DO COOPERADO ===
+Nome: Manoel do Carmo
+Matrícula: C004
+Comunidade: Ilha de Jatoba
+
+=== ENTREGAS DO COOPERADO ===
+--------------
+Data: 2026-09-05
+Rasas: 20
+Qualidade: SEGUNDA
+Preço por rasa: R$ 60.0
+Valor da entrega: R$ 1200.0
+--------------
+Data: 2026-09-19
+Rasas: 18
+Qualidade: PRIMEIRA
+Preço por rasa: R$ 80.0
+Valor da entrega: R$ 1440.0
+```
+
+**Opção 7 — adicionar cooperador**
+
+```
+[Opção 7 Selecionada: Adicionar Cooperador]
+Deseja adicionar um cooperado novo? S/N
+S
+Insira o nome do cooperado:
+Joao da Silva
+Insira a matricula do cooperado:
+C050
+Insira a comunidade do cooperado:
+Ilha de Jatoba
+Cooperado cadastrado com sucesso!
+```
+
+**Opção 8 — listar cooperadores**
+
+```
+[Opção 8 Selecionada: Listar Cooperadores]
+Deseja listar os cooperadores? S/N
+S
+Matrícula: C010 | Nome: Raimunda Ferreira | Comunidade: Vila Espirito Santo
+Matrícula: C004 | Nome: Manoel do Carmo | Comunidade: Ilha de Jatoba
+Matrícula: C007 | Nome: Antonia Lopes | Comunidade: Vila Espirito Santo
+```
+
+**Opção 9 — remover entrega de um cooperador**
+
+```
+[Opção 9 Selecionada: Remover Entrega de cooperador]
+Insira a matricula do cooperador para remover sua entrega
+C004
+Insira a data da entrega:
+05/09/2026
+Deseja remover a entrega do dia 2026-09-05 ? S/N
+S
+Entrega removida!
+```
+
+**Opção 10 — buscar cooperador pela matrícula**
+
+```
+[Opção 10 Selecionada: Buscar cooperador pela matricula]
+Insira a matrícula do cooperado:
+C004
+=== COOPERADO ENCONTRADO ===
+Nome: Manoel do Carmo
+Matrícula: C004
+Comunidade: Ilha de Jatoba
+```
+
+Com uma matrícula que não existe:
+
+```
+Insira a matrícula do cooperado:
+C999
+Cooperado não encontrado!
+```
+
+**Opção 11 — remover entregas anteriores a uma data limite**
+
+```
+[Opção 11 Selecionada: Remover entregas anteriores a data limite]
+Insira a matrícula do cooperado:
+C010
+Insira a data limite (DD/MM/AAAA):
+10/09/2026
+Deseja remover todas as entregas anteriores a 2026-09-10 de Raimunda Ferreira? S/N
+S
+2 entrega(s) removida(s)!
+```
+
+Com uma data em formato errado:
+
+```
+Insira a data limite (DD/MM/AAAA):
+99/99/2026
+Data inválida! Utilize DD/MM/AAAA.
+```
+
+**Opção 12 — salvar dados**
+
+```
+[Opção 12 selecionada: Salvar dados
+Dados salvos em dados/cooperativa.txt
+```
+
+**Opção 13 — relatório de pagamento (09/2026)**
+
+```
+[Opção 13 selecionada: Gerar relatório de pagamento
 Insira o mês (1 a 12):
 9
-Insira o ano (ex: 2026):
+Insira o ano (ex.: 2026):
 2026
 Folha 09-2026 Cooperativa Mista do Rio Tocantins (taxa 8.0%)
 C004 Manoel do Carmo 38 rasas bruto R$ 2640.00 taxa R$ 211.20 bonus R$ 0.00 liquido R$ 2428.80
@@ -231,15 +448,27 @@ C007 Antonia Lopes 22 rasas bruto R$ 1985.00 taxa R$ 158.80 bonus R$ 39.70 liqui
 C010 Raimunda Ferreira 30 rasas bruto R$ 2670.00 taxa R$ 213.60 bonus R$ 53.40 liquido R$ 2509.80
 Total a pagar: R$ 6804.50
 Ranking: 1° C004 (38 rasas), 2° C010 (30 rasas), 3° C007 (22 rasas)
+
 Relatório salvo em saidas/pagamento_09_2026.txt
 ```
 
-**Opção 14 — cooperados sem entrega (10/2026, arquivo de exemplo):**
+Com um mês fora do intervalo:
 
 ```
 Insira o mês (1 a 12):
+13
+Insira o ano (ex.: 2026):
+2026
+Mês inválido! Digite de 1 a 12.
+```
+
+**Opção 14 — cooperados sem entrega (10/2026)**
+
+```
+[Opção 14 Selecionada: Gerar relatório de cooperados sem entrega]
+Insira o mês (1 a 12):
 10
-Insira o ano (ex: 2026):
+Insira o ano (ex.: 2026):
 2026
 Cooperados sem entrega em 10-2026 - Cooperativa Mista do Rio Tocantins
 C004 Manoel do Carmo (Ilha de Jatoba)
@@ -248,7 +477,33 @@ C010 Raimunda Ferreira (Vila Espirito Santo)
 Relatório salvo em saidas/sem_entrega_10_2026.txt
 ```
 
-[PREENCHER: acrescentar um exemplo de tela das demais opções, como pede o documento de funcionamento.]
+Quando todos os cooperados entregaram no mês (09/2026):
+
+```
+Cooperados sem entrega em 09-2026 - Cooperativa Mista do Rio Tocantins
+Todos os cooperados fizeram entregas no mês.
+Relatório salvo em saidas/sem_entrega_09_2026.txt
+```
+
+**Opção 0 — sair**
+
+```
+Deseja salvar os dados antes de sair? (S/N)
+S
+Dados salvos em dados/cooperativa.txt
+Encerrando sistema...
+```
+
+Respondendo `N`, o programa encerra sem gravar (`Encerrando sistema...`).
+
+**Opção inexistente ou texto no menu**
+
+```
+abc
+Opçãoi Inválida! Digite um número
+99
+Opção inválida! Digite de 0 a 14:
+```
 
 ## 9. Status da implementação
 
