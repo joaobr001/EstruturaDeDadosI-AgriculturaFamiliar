@@ -12,7 +12,7 @@ Scanner sc = new Scanner(System.in);
 void exibirMenu(){
     int opcao = -1;
     Cooperativa cooperativa = carregarArquivo("dados/cooperativa.txt");
-    while (opcao != 0){
+    while (opcao != 0) {
 
         IO.println("=== MENU DA COOPERATIVA===");
         IO.println("1. Registrar entrega de um cooperado");
@@ -32,76 +32,86 @@ void exibirMenu(){
         IO.println("0. Sair");
         try {
             opcao = sc.nextInt();
-        }catch(InputMismatchException e){
-            IO.println("Opçãoi Inválida! Digite um número");
+        } catch (InputMismatchException e) {
+            IO.println("Opção Inválida! Digite um número");
             sc.next();// remover texto invalido
             continue;
         }
-        switch (opcao){
-            case 1:
-                IO.println("[Opção 1 Selecionada:  Registrar entrega]");
-                RegistrarEntrega(cooperativa);
-                break;
-            case 2:
-                IO.println("[Opção 2 Selecionada: Extrato do cooperado]");
-                break;
-            case 3:
-                IO.println("[Opção 3 Selecionada: Produção por comunidade:]");
-                break;
-            case 4:
-                IO.println("[Opção 4 Selecionada: Alterar taxa administrativa:]");
-                alterarTaxa(cooperativa);
-                break;
-            case 5:
-                IO.println("[Opção 5 Selecionada: Remover Cooperador]");
-                removerCoop(cooperativa);
-                break;
-            case 6:
-                IO.println("[Opção 6 Selecionada: Detalhar Cooperador]");
-                detalharCooperador(cooperativa);
-                break;
-            case 7:
-                IO.println("[Opção 7 Selecionada: Adicionar Cooperador]");
-                addCoop(cooperativa);
-                break;
-            case 8:
-                IO.println("[Opção 8 Selecionada: Listar Cooperadores]");
-                listar(cooperativa);
-                break;
-            case 9:
-                IO.println("[Opção 9 Selecionada: Remover Entrega de cooperador]");
-                removerEntrega(cooperativa);
-                break;
-            case 10:
-                IO.println("[Opção 10 Selecionada: Buscar cooperador pela matricula]");
-                buscarCooperador(cooperativa);
-                break;
-            case 11:
-                IO.println("[Opção 11 Selecionada: Remover entregas anteriores a data limite]");
-                removerEntregasAnteriores(cooperativa);
-                break;
-            case 12:
-                IO.println("[Opção 12 selecionada: Salvar dados");
-                salvarArquivo(cooperativa,"dados/cooperativa.txt");
-            case 13:
-                IO.println("[Opção 13 selecionada: Gerar relatório de pagamento");
-                gerarRelatorioPagamento(cooperativa);
-                break;
-            case 14:
-                IO.println("[Opção 14 Selecionada: Gerar relatório de cooperados sem entrega]");
-                gerarRelatorioSemEntrega(cooperativa);
-                break;
-            case 0:
-                IO.println("Deseja salvar os dados antes de sair? (S/N)");
-                String resposta = sc.next();
-
-                if (resposta.equalsIgnoreCase("S")) {
+        try {
+            switch (opcao) {
+                case 1:
+                    IO.println("[Opção 1 Selecionada:  Registrar entrega]");
+                    RegistrarEntrega(cooperativa);
+                    break;
+                case 2:
+                    IO.println("[Opção 2 Selecionada: Extrato do cooperado]");
+                    break;
+                case 3:
+                    IO.println("[Opção 3 Selecionada: Produção por comunidade:]");
+                    break;
+                case 4:
+                    IO.println("[Opção 4 Selecionada: Alterar taxa administrativa:]");
+                    alterarTaxa(cooperativa);
+                    break;
+                case 5:
+                    IO.println("[Opção 5 Selecionada: Remover Cooperador]");
+                    removerCoop(cooperativa);
+                    break;
+                case 6:
+                    IO.println("[Opção 6 Selecionada: Detalhar Cooperador]");
+                    detalharCooperador(cooperativa);
+                    break;
+                case 7:
+                    IO.println("[Opção 7 Selecionada: Adicionar Cooperador]");
+                    addCoop(cooperativa);
+                    break;
+                case 8:
+                    IO.println("[Opção 8 Selecionada: Listar Cooperadores]");
+                    listar(cooperativa);
+                    break;
+                case 9:
+                    IO.println("[Opção 9 Selecionada: Remover Entrega de cooperador]");
+                    removerEntrega(cooperativa);
+                    break;
+                case 10:
+                    IO.println("[Opção 10 Selecionada: Buscar cooperador pela matricula]");
+                    buscarCooperador(cooperativa);
+                    break;
+                case 11:
+                    IO.println("[Opção 11 Selecionada: Remover entregas anteriores a data limite]");
+                    removerEntregasAnteriores(cooperativa);
+                    break;
+                case 12:
+                    IO.println("[Opção 12 Selecionada: Salvar dados]");
                     salvarArquivo(cooperativa, "dados/cooperativa.txt");
-                }
-                IO.println("Encerrando sistema...");
-                break;
-            default:
-                IO.println("Opção inválida! Digite de 0 a 14:");
+                    break;
+                case 13:
+                    IO.println("[Opção 13 Selecionada: Gerar relatório de pagamento");
+                    gerarRelatorioPagamento(cooperativa);
+                    break;
+                case 14:
+                    IO.println("[Opção 14 Selecionada: Gerar relatório de cooperados sem entrega]");
+                    gerarRelatorioSemEntrega(cooperativa);
+                    break;
+                case 0:
+                    IO.println("Deseja salvar os dados antes de sair? (S/N)");
+                    String resposta = sc.next();
+
+                    if (resposta.equalsIgnoreCase("S")) {
+                        salvarArquivo(cooperativa, "dados/cooperativa.txt");
+                    }
+                    IO.println("Encerrando sistema...");
+                    break;
+                default:
+                    IO.println("Opção inválida! Digite de 0 a 14:");
+            }
+        } catch (InputMismatchException e) {
+            sc.next();
+            IO.println("Erro: valor inválido! Digite um número.");
+        } catch (DateTimeParseException e) {
+            IO.println("Erro: data inválida! Utilize DD/MM/AAAA.");
+        } catch (RuntimeException e) {
+            IO.println("Erro: " + e.getMessage());
         }
     }
 }

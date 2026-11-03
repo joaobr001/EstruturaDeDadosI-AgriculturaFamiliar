@@ -292,6 +292,12 @@ Insira a qualidade:1-ESPECIAL 2-PRIMEIRA 3-SEGUNDA
 Erro:Qualidade inserida não existe!
 ```
 
+```
+Insira a qualidade:1-ESPECIAL 2-PRIMEIRA 3-SEGUNDA
+abc
+Erro: valor inválido! Digite um número.
+```
+
 **Opções 2 e 3 — extrato e produção por comunidade**
 
 Ainda não implementadas: por enquanto, mostram apenas a mensagem de seleção (`[Opção 2 Selecionada: Extrato do cooperado]` e `[Opção 3 Selecionada: Produção por comunidade:]`).
@@ -306,6 +312,14 @@ Insira a nova taxa administrativa:
 
 A taxa é arredondada para uma casa decimal e passa a valer nos relatórios (o cabeçalho da folha passa a mostrar `taxa 10.0%`).
 
+Com texto no lugar do número:
+
+```
+Insira a nova taxa administrativa:
+abc
+Erro: valor inválido! Digite um número.
+```
+
 **Opção 5 — remover cooperador**
 
 ```
@@ -318,6 +332,14 @@ Cooperado removido
 ```
 
 Respondendo `N`, aparece `Operação cancelada`.
+
+Com uma matrícula que não existe:
+
+```
+Insira a matrícula do cooperador a ser removido
+C999
+Erro: Cooperado não existe
+```
 
 **Opção 6 — detalhar cooperador**
 
@@ -347,6 +369,14 @@ Preço por rasa: R$ 80.0
 Valor da entrega: R$ 1440.0
 ```
 
+Com uma matrícula que não existe:
+
+```
+Insira a matricula do cooperador a ser investigado:
+C999
+Erro: Cooperado não existe
+```
+
 **Opção 7 — adicionar cooperador**
 
 ```
@@ -360,6 +390,14 @@ C050
 Insira a comunidade do cooperado:
 Ilha de Jatoba
 Cooperado cadastrado com sucesso!
+```
+
+Com uma matrícula que já está cadastrada:
+
+```
+Insira a matricula do cooperado:
+C004
+Erro: Já existe um cooperado com essa matrícula!
 ```
 
 **Opção 8 — listar cooperadores**
@@ -384,6 +422,22 @@ Insira a data da entrega:
 Deseja remover a entrega do dia 2026-09-05 ? S/N
 S
 Entrega removida!
+```
+
+Se não há entrega na data informada:
+
+```
+Insira a data da entrega:
+01/01/2026
+Erro: Entrega não encontrada nesta data
+```
+
+Com uma data em formato errado:
+
+```
+Insira a data da entrega:
+abc
+Erro: data inválida! Utilize DD/MM/AAAA.
 ```
 
 **Opção 10 — buscar cooperador pela matrícula**
@@ -430,14 +484,14 @@ Data inválida! Utilize DD/MM/AAAA.
 **Opção 12 — salvar dados**
 
 ```
-[Opção 12 selecionada: Salvar dados
+[Opção 12 Selecionada: Salvar dados]
 Dados salvos em dados/cooperativa.txt
 ```
 
 **Opção 13 — relatório de pagamento (09/2026)**
 
 ```
-[Opção 13 selecionada: Gerar relatório de pagamento
+[Opção 13 Selecionada: Gerar relatório de pagamento]
 Insira o mês (1 a 12):
 9
 Insira o ano (ex.: 2026):
@@ -500,7 +554,7 @@ Respondendo `N`, o programa encerra sem gravar (`Encerrando sistema...`).
 
 ```
 abc
-Opçãoi Inválida! Digite um número
+Opção inválida! Digite um número
 99
 Opção inválida! Digite de 0 a 14:
 ```
