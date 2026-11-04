@@ -88,7 +88,7 @@ void exibirMenu(){
                     salvarArquivo(cooperativa, "dados/cooperativa.txt");
                     break;
                 case 13:
-                    IO.println("[Opção 13 Selecionada: Gerar relatório de pagamento");
+                    IO.println("[Opção 13 Selecionada: Gerar relatório de pagamento]");
                     gerarRelatorioPagamento(cooperativa);
                     break;
                 case 14:
