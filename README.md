@@ -100,6 +100,18 @@ javac -d out src/*.java
 java -cp out Main
 ```
 
+**Testes unitários (Java puro, sem JUnit):** cobrem `Entrega`, `Cooperado` e `Cooperativa`.
+
+```bash
+# compilar o código e o teste
+javac -d out src/*.java testes/TesteDominio.java
+
+# executar os testes
+java -cp out TesteDominio
+```
+
+Resultado esperado na última linha: `Resultado: 44 OK, 0 falha(s), total 44`. O menu, a leitura e a gravação de arquivos (classe `Main`) foram conferidos executando o programa com `dados/cooperativa.txt` e `dados/grande.txt` e comparando as saídas com `dados/esperado.txt` e com os valores calculados à parte.
+
 ## 7. Formato dos arquivos
 
 ### Entrada: `dados/cooperativa.txt`
@@ -298,9 +310,83 @@ abc
 Erro: valor inválido! Digite um número.
 ```
 
-**Opções 2 e 3 — extrato e produção por comunidade**
+**Opção 2 — extrato de um cooperado em um mês**
 
-Ainda não implementadas: por enquanto, mostram apenas a mensagem de seleção (`[Opção 2 Selecionada: Extrato do cooperado]` e `[Opção 3 Selecionada: Produção por comunidade:]`).
+```
+[Opção 2 Selecionada: Extrato do cooperado]
+Insira a matrícula do cooperado:
+C004
+Insira o mês (1 a 12):
+9
+Insira o ano (ex.: 2026):
+2026
+
+=== EXTRATO DO COOPERADO ===
+Nome: Manoel do Carmo
+Matrícula: C004
+Comunidade: Ilha de Jatoba
+
+=== ENTREGAS DO MÊS ===
+--------------------------
+Data: 2026-09-05
+Rasas: 20
+Qualidade: SEGUNDA
+Preço por rasa: R$ 60.0
+Valor da entrega: R$ 1200.0
+--------------------------
+Data: 2026-09-19
+Rasas: 18
+Qualidade: PRIMEIRA
+Preço por rasa: R$ 80.0
+Valor da entrega: R$ 1440.0
+
+=== RESUMO FINANCEIRO ===
+Quantidade de entregas: 2
+Total de rasas: 38
+Valor bruto: R$ 2640.00
+Taxa administrativa: R$ 211.20
+Bônus: R$ 0.00
+Valor líquido: R$ 2428.80
+```
+
+Com uma matrícula que não existe:
+
+```
+Insira a matrícula do cooperado:
+C999
+Cooperado não encontrado!
+```
+
+Com um mês em que o cooperado não entregou (aqui, 10/2026):
+
+```
+Insira o ano (ex.: 2026):
+2026
+Nenhuma entrega registrada neste mês.
+```
+
+**Opção 3 — produção por comunidade em um mês**
+
+```
+[Opção 3 Selecionada: Produção por comunidade:]
+Insira o mês (1 a 12):
+9
+Insira o ano (ex.: 2026):
+2026
+
+=== PRODUÇÃO POR COMUNIDADE ===
+Período: 9/2026
+--------------------------
+Comunidade: Vila Espirito Santo
+Total de rasas: 52
+--------------------------
+Comunidade: Ilha de Jatoba
+Total de rasas: 38
+--------------------------
+PRODUÇÃO TOTAL: 90 rasas
+```
+
+As comunidades aparecem na ordem em que surgem no arquivo, e só entram as que tiveram entrega no mês. Se nenhuma comunidade entregou (aqui, 10/2026), aparece `Nenhuma produção registrada neste mês.` Com um mês fora de 1 a 12, aparece `Mês inválido! Digite de 1 a 12.`
 
 **Opção 4 — alterar a taxa administrativa**
 
@@ -567,15 +653,22 @@ Opção inválida! Digite de 0 a 14:
 - [x] Massa de dados grande (`dados/grande.txt`)
 - [x] Menu com registro, listagem, detalhe, cadastro e remoção
 - [x] `folhaPagamento` e `ranking` em `Cooperativa`
-- [ ] Opções 2 e 3 do menu (extrato e produção por comunidade)
+- [x] Opções 2 e 3 do menu (extrato e produção por comunidade)
 - [x] Menu: buscar por matrícula, salvar, gerar relatórios e perguntar se deseja salvar ao sair
 - [x] Carregar `dados/cooperativa.txt` ao iniciar o programa
 - [x] Relatórios gravados em `saidas/` (folha de pagamento e cooperados sem entrega)
 - [x] Remoção condicional (RC5c) e ordenação dos relatórios (RC5d)
+- [x] Testes unitários das classes de domínio (`testes/TesteDominio.java`, 44 testes)
 
 ## 10. Limitações conhecidas
 
-[PREENCHER ao final do desenvolvimento.]
+- O programa deve ser executado **a partir da raiz do repositório**, porque os caminhos (`dados/` e `saidas/`) são relativos. Se `dados/cooperativa.txt` não for encontrado, o programa avisa e começa com a cooperativa vazia; nesse caso, salvar ao sair gravaria um arquivo vazio por cima.
+- Os relatórios das opções 13 e 14 têm nome fixo por mês e ano (`pagamento_MM_aaaa.txt` e `sem_entrega_MM_aaaa.txt`). Gerar de novo sobrescreve o arquivo anterior, e os relatórios da massa grande foram copiados à mão para `saidas/grande/`.
+- As opções 2 e 3 só mostram o resultado na tela; não gravam arquivo.
+- Ao salvar, o arquivo é regravado com as entregas de cada cooperado em ordem de data, então a ordem das linhas pode mudar em relação ao arquivo original.
+- A taxa administrativa (opção 4) é arredondada para uma casa decimal, não mostra mensagem de confirmação e aceita qualquer número, inclusive negativo. O ano informado nos relatórios também não é limitado a um intervalo.
+- No extrato (opção 2) e no detalhe do cooperador (opção 6), as datas aparecem como `AAAA-MM-DD` e os valores por rasa e por entrega sem duas casas decimais.
+- As comunidades da opção 3 aparecem na ordem em que surgem no arquivo, não em ordem alfabética.
 
 ## 11. Divisão de tarefas
 
@@ -591,7 +684,7 @@ Opção inválida! Digite de 0 a 14:
 
 ```
 README.md
-src/        código-fonte Java
+src/        código-fonte Java, TesteDominio.java (testes unitários das classes de domínio)
 dados/      cooperativa.txt (exemplo do enunciado) e grande.txt (massa grande) e esperado.txt (saída esperada da folha de 09/2026)
 saidas/     relatórios gerados com o arquivo de exemplo (saidas/grande/ tem os gerados com a massa grande)
 docs/       documentacao.pdf
