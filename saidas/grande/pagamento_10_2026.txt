@@ -1,0 +1,23 @@
+Folha 10-2026 Cooperativa Mista do Rio Tocantins (taxa 8.0%)
+C002 Manoel Nunes 38 rasas bruto R$ 2840.00 taxa R$ 227.20 bonus R$ 56.80 liquido R$ 2669.60
+C003 Antonia Lopes 19 rasas bruto R$ 1520.00 taxa R$ 121.60 bonus R$ 0.00 liquido R$ 1398.40
+C004 Francisco Cruz 31 rasas bruto R$ 2200.00 taxa R$ 176.00 bonus R$ 0.00 liquido R$ 2024.00
+C007 Benedita Costa 33 rasas bruto R$ 2560.00 taxa R$ 204.80 bonus R$ 51.20 liquido R$ 2406.40
+C009 Luzia Prado 31 rasas bruto R$ 2260.00 taxa R$ 180.80 bonus R$ 0.00 liquido R$ 2079.20
+C010 Sebastiao Santos 46 rasas bruto R$ 3600.00 taxa R$ 288.00 bonus R$ 72.00 liquido R$ 3384.00
+C011 Francisca Vale 20 rasas bruto R$ 1900.00 taxa R$ 152.00 bonus R$ 0.00 liquido R$ 1748.00
+C012 Pedro Silva 19 rasas bruto R$ 1520.00 taxa R$ 121.60 bonus R$ 0.00 liquido R$ 1398.40
+C013 Rita Ferreira 41 rasas bruto R$ 3595.00 taxa R$ 287.60 bonus R$ 71.90 liquido R$ 3379.30
+C014 Osmar Nunes 5 rasas bruto R$ 475.00 taxa R$ 38.00 bonus R$ 0.00 liquido R$ 437.00
+C015 Helena Lopes 10 rasas bruto R$ 600.00 taxa R$ 48.00 bonus R$ 0.00 liquido R$ 552.00
+C019 Francisco Costa 46 rasas bruto R$ 3680.00 taxa R$ 294.40 bonus R$ 0.00 liquido R$ 3385.60
+C020 Maria do Carmo 38 rasas bruto R$ 2600.00 taxa R$ 208.00 bonus R$ 0.00 liquido R$ 2392.00
+C024 Luzia Silva 24 rasas bruto R$ 1540.00 taxa R$ 123.20 bonus R$ 0.00 liquido R$ 1416.80
+C025 Sebastiao Ferreira 41 rasas bruto R$ 3280.00 taxa R$ 262.40 bonus R$ 0.00 liquido R$ 3017.60
+C026 Francisca Nunes 49 rasas bruto R$ 4295.00 taxa R$ 343.60 bonus R$ 0.00 liquido R$ 3951.40
+C027 Pedro Lopes 23 rasas bruto R$ 1380.00 taxa R$ 110.40 bonus R$ 0.00 liquido R$ 1269.60
+C028 Rita Cruz 61 rasas bruto R$ 4880.00 taxa R$ 390.40 bonus R$ 97.60 liquido R$ 4587.20
+C029 Osmar Pereira 20 rasas bruto R$ 1690.00 taxa R$ 135.20 bonus R$ 0.00 liquido R$ 1554.80
+C030 Helena Rocha 11 rasas bruto R$ 880.00 taxa R$ 70.40 bonus R$ 0.00 liquido R$ 809.60
+Total a pagar: R$ 43860.90
+Ranking: 1° C028 (61 rasas), 2° C026 (49 rasas), 3° C010 (46 rasas)
