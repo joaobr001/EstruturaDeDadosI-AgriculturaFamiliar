@@ -45,9 +45,11 @@ void exibirMenu(){
                     break;
                 case 2:
                     IO.println("[Opção 2 Selecionada: Extrato do cooperado]");
+                    gerarExtratoCooperado(cooperativa);
                     break;
                 case 3:
                     IO.println("[Opção 3 Selecionada: Produção por comunidade:]");
+                    gerarProducaoComunidade(cooperativa);
                     break;
                 case 4:
                     IO.println("[Opção 4 Selecionada: Alterar taxa administrativa:]");
@@ -115,6 +117,163 @@ void exibirMenu(){
         }
     }
 }
+
+void gerarExtratoCooperado(Cooperativa cooperativa) {
+
+    IO.println("Insira a matrícula do cooperado:");
+    String matricula = sc.next();
+
+    Cooperado c = cooperativa.buscarCooperado(matricula);
+
+    if (c == null) {
+        IO.println("Cooperado não encontrado!");
+        return;
+    }
+
+    int[] mesAno = lerMesAno();
+
+    if (mesAno == null) {
+        return;
+    }
+
+    int mes = mesAno[0];
+    int ano = mesAno[1];
+
+    StringBuilder texto = new StringBuilder();
+
+    texto.append("\n=== EXTRATO DO COOPERADO ===\n");
+    texto.append("Nome: " + c.getNome() + "\n");
+    texto.append("Matrícula: " + c.getMatricula() + "\n");
+    texto.append("Comunidade: " + c.getComunidade() + "\n");
+
+    texto.append("\n=== ENTREGAS DO MÊS ===\n");
+
+    int quantidade = 0;
+
+    for (Entrega e : c.getEntregas()) {
+
+        if (e.getData().getMonthValue() == mes &&
+                e.getData().getYear() == ano) {
+
+            texto.append("--------------------------\n");
+            texto.append("Data: " + e.getData() + "\n");
+            texto.append("Rasas: " + e.getRasas() + "\n");
+            texto.append("Qualidade: " + e.getQualidade() + "\n");
+            texto.append("Preço por rasa: R$ " + e.precoRasa() + "\n");
+            texto.append("Valor da entrega: R$ " + e.valor() + "\n");
+
+            quantidade++;
+        }
+    }
+
+    if (quantidade == 0) {
+        IO.println("Nenhuma entrega registrada neste mês.");
+        return;
+    }
+
+    double bruto = c.valorBruto(ano, mes);
+
+    double taxa = bruto *
+            cooperativa.getTaxaAdministrativa() / 100;
+
+    double bonus = c.bonus(ano, mes);
+
+    double liquido = c.liquido(
+            ano,
+            mes,
+            cooperativa.getTaxaAdministrativa()
+    );
+
+    texto.append("\n=== RESUMO FINANCEIRO ===\n");
+    texto.append("Quantidade de entregas: " + quantidade + "\n");
+    texto.append("Total de rasas: " + c.rasas(ano, mes) + "\n");
+
+    texto.append(String.format(Locale.US,
+            "Valor bruto: R$ %.2f%n", bruto));
+
+    texto.append(String.format(Locale.US,
+            "Taxa administrativa: R$ %.2f%n", taxa));
+
+    texto.append(String.format(Locale.US,
+            "Bônus: R$ %.2f%n", bonus));
+
+    texto.append(String.format(Locale.US,
+            "Valor líquido: R$ %.2f%n", liquido));
+
+    IO.print(texto.toString());
+}
+
+
+void gerarProducaoComunidade(Cooperativa cooperativa) {
+
+    // Solicitar mês e ano
+    int[] mesAno = lerMesAno();
+
+    if (mesAno == null) {
+        return;
+    }
+
+    int mes = mesAno[0];
+    int ano = mesAno[1];
+
+    // Criar listas para armazenar comunidades e produções
+    ArrayList<String> comunidades = new ArrayList<>();
+    ArrayList<Integer> producoes = new ArrayList<>();
+
+    // Percorrer todos os cooperados
+    for (Cooperado c : cooperativa.getCooperados()) {
+
+        int rasas = c.rasas(ano, mes);
+
+        if (rasas == 0) {
+            continue;
+        }
+
+        String comunidade = c.getComunidade();
+
+        // Verificar se a comunidade já está cadastrada
+        int indice = comunidades.indexOf(comunidade);
+
+        if (indice == -1) {
+
+            comunidades.add(comunidade);
+            producoes.add(rasas);
+
+        } else {
+
+            int totalAtual = producoes.get(indice);
+
+            producoes.set(indice, totalAtual + rasas);
+        }
+    }
+
+    // Exibir relatório
+    IO.println("\n=== PRODUÇÃO POR COMUNIDADE ===");
+    IO.println("Período: " + mes + "/" + ano);
+
+    if (comunidades.isEmpty()) {
+        IO.println("Nenhuma produção registrada neste mês.");
+        return;
+    }
+
+    int totalGeral = 0;
+
+    for (int i = 0; i < comunidades.size(); i++) {
+
+        String comunidade = comunidades.get(i);
+        int total = producoes.get(i);
+
+        IO.println("--------------------------");
+        IO.println("Comunidade: " + comunidade);
+        IO.println("Total de rasas: " + total);
+
+        totalGeral += total;
+    }
+
+    IO.println("--------------------------");
+    IO.println("PRODUÇÃO TOTAL: " + totalGeral + " rasas");
+}
+
 
 
 void removerEntregasAnteriores(Cooperativa cooperativa) {
