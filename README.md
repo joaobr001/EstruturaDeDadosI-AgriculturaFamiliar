@@ -104,10 +104,10 @@ java -cp out Main
 
 ```bash
 # compilar o código e o teste
-javac -d out src/*.java testes/TesteDominio.java
+javac -d out src/*.java 
 
 # executar os testes
-java -cp out TesteDominio
+java -cp out TesteDominio.java
 ```
 
 Resultado esperado na última linha: `Resultado: 44 OK, 0 falha(s), total 44`. O menu, a leitura e a gravação de arquivos (classe `Main`) foram conferidos executando o programa com `dados/cooperativa.txt` e `dados/grande.txt` e comparando as saídas com `dados/esperado.txt` e com os valores calculados à parte.
@@ -658,7 +658,7 @@ Opção inválida! Digite de 0 a 14:
 - [x] Carregar `dados/cooperativa.txt` ao iniciar o programa
 - [x] Relatórios gravados em `saidas/` (folha de pagamento e cooperados sem entrega)
 - [x] Remoção condicional (RC5c) e ordenação dos relatórios (RC5d)
-- [x] Testes unitários das classes de domínio (`testes/TesteDominio.java`, 44 testes)
+- [x] Testes unitários das classes de domínio (`src/TesteDominio.java`, 44 testes)
 
 ## 10. Limitações conhecidas
 

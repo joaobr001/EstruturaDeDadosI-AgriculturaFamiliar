@@ -740,5 +740,6 @@ void gerarRelatorioSemEntrega(Cooperativa cooperativa){
 
 void main(){
     Locale.setDefault(Locale.US);
+    sc.useLocale(Locale.US);
     exibirMenu();
 }
