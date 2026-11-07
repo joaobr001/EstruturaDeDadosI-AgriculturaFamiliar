@@ -1,24 +1,4 @@
 Folha 08-2026 Cooperativa Mista do Rio Tocantins (taxa 8.0%)
-C003 Antonia Lopes 16 rasas bruto R$ 1280.00 taxa R$ 102.40 bonus R$ 0.00 liquido R$ 1177.60
-C004 Francisco Cruz 15 rasas bruto R$ 900.00 taxa R$ 72.00 bonus R$ 0.00 liquido R$ 828.00
-C005 Maria Pereira 31 rasas bruto R$ 2570.00 taxa R$ 205.60 bonus R$ 0.00 liquido R$ 2364.40
-C008 Joaquim do Carmo 26 rasas bruto R$ 1700.00 taxa R$ 136.00 bonus R$ 0.00 liquido R$ 1564.00
-C009 Luzia Prado 42 rasas bruto R$ 2980.00 taxa R$ 238.40 bonus R$ 0.00 liquido R$ 2741.60
-C011 Francisca Vale 10 rasas bruto R$ 950.00 taxa R$ 76.00 bonus R$ 0.00 liquido R$ 874.00
-C012 Pedro Silva 30 rasas bruto R$ 1920.00 taxa R$ 153.60 bonus R$ 0.00 liquido R$ 1766.40
-C014 Osmar Nunes 37 rasas bruto R$ 3515.00 taxa R$ 281.20 bonus R$ 0.00 liquido R$ 3233.80
-C016 Raimunda Cruz 8 rasas bruto R$ 640.00 taxa R$ 51.20 bonus R$ 0.00 liquido R$ 588.80
-C017 Manoel Pereira 25 rasas bruto R$ 2000.00 taxa R$ 160.00 bonus R$ 0.00 liquido R$ 1840.00
-C019 Francisco Costa 39 rasas bruto R$ 2760.00 taxa R$ 220.80 bonus R$ 0.00 liquido R$ 2539.20
-C020 Maria do Carmo 31 rasas bruto R$ 2480.00 taxa R$ 198.40 bonus R$ 0.00 liquido R$ 2281.60
-C021 Raimundo Prado 50 rasas bruto R$ 4750.00 taxa R$ 380.00 bonus R$ 0.00 liquido R$ 4370.00
-C022 Benedita Santos 15 rasas bruto R$ 1200.00 taxa R$ 96.00 bonus R$ 0.00 liquido R$ 1104.00
-C023 Joaquim Vale 20 rasas bruto R$ 1900.00 taxa R$ 152.00 bonus R$ 0.00 liquido R$ 1748.00
-C024 Luzia Silva 10 rasas bruto R$ 800.00 taxa R$ 64.00 bonus R$ 0.00 liquido R$ 736.00
-C025 Sebastiao Ferreira 18 rasas bruto R$ 1710.00 taxa R$ 136.80 bonus R$ 0.00 liquido R$ 1573.20
-C026 Francisca Nunes 25 rasas bruto R$ 2270.00 taxa R$ 181.60 bonus R$ 0.00 liquido R$ 2088.40
-C027 Pedro Lopes 22 rasas bruto R$ 1760.00 taxa R$ 140.80 bonus R$ 35.20 liquido R$ 1654.40
-C028 Rita Cruz 24 rasas bruto R$ 1920.00 taxa R$ 153.60 bonus R$ 0.00 liquido R$ 1766.40
-C029 Osmar Pereira 22 rasas bruto R$ 1760.00 taxa R$ 140.80 bonus R$ 0.00 liquido R$ 1619.20
-Total a pagar: R$ 38459.00
-Ranking: 1° C021 (50 rasas), 2° C009 (42 rasas), 3° C019 (39 rasas)
+C010 Raimunda Ferreira 15 rasas bruto R$ 1200.00 taxa R$ 96.00 bonus R$ 0.00 liquido R$ 1104.00
+Total a pagar: R$ 1104.00
+Ranking: 1° C010 (15 rasas)

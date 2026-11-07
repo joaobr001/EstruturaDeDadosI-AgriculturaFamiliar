@@ -1,10 +1,3 @@
 Cooperados sem entrega em 08-2026 - Cooperativa Mista do Rio Tocantins
-C001 Raimunda Ferreira (Vila Espirito Santo)
-C002 Manoel Nunes (Ilha de Jatoba)
-C006 Raimundo Rocha (Comunidade Sao Joao)
-C007 Benedita Costa (Ilha de Santa Rosa)
-C010 Sebastiao Santos (Comunidade Sao Joao)
-C013 Rita Ferreira (Comunidade Sao Joao)
-C015 Helena Lopes (Ilha de Jatoba)
-C018 Antonia Rocha (Comunidade Sao Joao)
-C030 Helena Rocha (Ilha do Capim)
+C004 Manoel do Carmo (Ilha de Jatoba)
+C007 Antonia Lopes (Vila Espirito Santo)

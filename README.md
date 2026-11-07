@@ -104,10 +104,10 @@ java -cp out Main
 
 ```bash
 # compilar o código e o teste
-javac -d out src/*.java 
+javac -d out src/*.java
 
 # executar os testes
-java -cp out TesteDominio.java
+java -cp out TesteDominio
 ```
 
 Resultado esperado na última linha: `Resultado: 44 OK, 0 falha(s), total 44`. O menu, a leitura e a gravação de arquivos (classe `Main`) foram conferidos executando o programa com `dados/cooperativa.txt` e `dados/grande.txt` e comparando as saídas com `dados/esperado.txt` e com os valores calculados à parte.
